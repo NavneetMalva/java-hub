@@ -3,6 +3,11 @@ package exceptions;
 /* how to create custom exception...
 * pass the arguments to run this program
 * e.g java ExceptionHandlingEx02 50 20
+*
+* To compile this
+* cd src/exceptions , javac ExceptionHandlingEx02.java
+* Now to Run this
+* cd src, java exceptions/ExceptionHandlingEx02 50 20
 */
 
 class AgeInvalidException extends Exception
