@@ -12,22 +12,23 @@ public class FunctionalProgQ {
         List<Person> persons = new ArrayList<>();
         persons.add(new Person("Rick", "Smith",3));
         persons.add(new Person("Morty", "Sanchez",2));
+        persons.add(new Person("Morty", "Anderson",9));
         persons.add(new Person("Summer", "Wick",1));
         persons.add(new Person("John", "Cena",1));
         persons.add(new Person("Rick", "Roll",2));
 
         System.out.println(persons.stream()
-                .sorted(Comparator.comparing(person -> person.fName))
-                .sorted(Comparator.comparing(person -> person.lName))
-                .filter(person -> person.exp>1)
+                .filter(person -> person.getExp()>1)
+                .sorted(Comparator.comparing(Person :: getfName)
+                        .thenComparing(Person::getlName))
                 .collect(Collectors.toList()));
     }
 }
 
 
 class Person {
-    String fName, lName;
-    int exp;
+    private String fName, lName;
+    private int exp;
 
     public Person(String fName, String lName, int exp) {
         this.fName = fName;
@@ -61,10 +62,6 @@ class Person {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "fName='" + fName + '\'' +
-                ", lName='" + lName + '\'' +
-                ", exp=" + exp +
-                '}';
+        return "Person{" + "fName='" + fName + '\'' + ", lName='" + lName + '\'' + ", exp=" + exp + '}';
     }
 }

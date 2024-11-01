@@ -15,7 +15,7 @@ public class HashMapQ {
 
         /**
          * Even though map can only have one null key, it will compile and run fine
-         * just that in output we will get only one outout will null key with the last entry
+         * just that in output we will get only one output will null key with the last entry
          * null null
          * 1 John
          * 2 Jane
