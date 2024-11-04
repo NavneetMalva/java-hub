@@ -6,7 +6,12 @@ Abstraction is process of hiding the implementation details and showing only the
 
 Encapsulation
 Encapsulation is a process of binding data and methods together in a single unit,  
-providing controlled access to data. 
+providing controlled access to data.
+
+** Steps to Achieve Encapsulation in Java
+Make Fields Private: Declare fields as private to restrict direct access from outside the class.
+Provide Public Getter and Setter Methods: Define public getter and setter methods to allow controlled access to the private fields.
+This lets you validate, modify, or control access to the fields as needed.
 */
 
 public class CircleArea {

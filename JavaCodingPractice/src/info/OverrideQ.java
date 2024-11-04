@@ -17,6 +17,12 @@ public class OverrideQ extends A {
         System.out.println("methodB from class");
     }
 
+    /**
+     * In this case, methodB in OverrideQ is not an example of overriding.
+     * This is because static methods in Java are not polymorphic;
+     * they belong to the class in which they are defined, not to instances of the class.
+     */
+
     public static void main(String[] args) {
 
         methodA();   // methodA

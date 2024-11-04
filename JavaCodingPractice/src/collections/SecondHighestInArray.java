@@ -1,6 +1,6 @@
 package collections;
 
-public class ArraysEx02 {
+public class SecondHighestInArray {
 
 	public static void main(String[] args) {
 

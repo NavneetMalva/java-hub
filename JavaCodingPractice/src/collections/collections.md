@@ -7,7 +7,7 @@
 
 Note :
 * Only ArrayList and Vector classes implements RandomAccess interface.
-* TreeSet and TreeeMap does not support Hetrogenous insertion.
+* TreeSet and TreeMap does not support Heterogeneous insertion.
 
 * new capacity of LinkedList = (current_capacity *1.5) +1
 * new capacity of vector = (current_capacity *2)
@@ -26,13 +26,14 @@ Note :
 * LinkedList is the worst choice if our frequent operation is retrieval operation.
 
 ## ArrayList vs LinkedList
-- It is the best choice if our frequent operation is retrieval
-- It is the best choice if our frequent Operation is insertion and deletion
+- ArrayList is the best choice if our frequent operation is retrieval
 - ArrayList is the worst choice if our frequent operation is insertion or deletion
-- LinkedList is the worst choice if our frequent operation is retrieval operation
-- Underlying data structure for ArrayList is resizable or growable Array.
-- Underlying data structure is Double Linked List.
 - ArrayList implements RandomAccess interface
+- Underlying data structure for ArrayList is resizable or growable Array.
+***
+- LinkedList is the best choice if our frequent Operation is insertion and deletion
+- LinkedList is the worst choice if our frequent operation is retrieval operation
+- Underlying data structure is Double Linked List.
 - LinkedList doesn't implement RandomAccess interface
 
 
