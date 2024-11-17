@@ -12,6 +12,10 @@ providing controlled access to data.
 Make Fields Private: Declare fields as private to restrict direct access from outside the class.
 Provide Public Getter and Setter Methods: Define public getter and setter methods to allow controlled access to the private fields.
 This lets you validate, modify, or control access to the fields as needed.
+
+- The process of grouping together the data members and corresponding methods -> Encapsulation
+- If any component follows the data hiding and abstraction is the concept of Encapsulation
+	Encapsulation = data hiding + abstraction;
 */
 
 public class CircleArea {
