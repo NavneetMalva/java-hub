@@ -23,3 +23,47 @@ It is a process in which a function call to the overridden method is resolved at
 This type of polymorphism is achieved by Method Overriding. 
 Method overriding, on the other hand, occurs when a derived class has a definition for one of the member functions of the base class. 
 That base function is said to be overridden.
+
+
+in overloading, method overloading takes care at compile time based on reference type -> Thats why compile time polymorphism
+Animal monkey = new Monkey(); -> will call Animal method
+
+In Overriding , method resolution takes care by jvm at runtime -> thats why Runtime polymorphism.
+Animal monkey = new Monkey(); -> will call Monkey method
+
+Method signature = method name + argument type
+
+### Method Overloading Rules
+Method Name: The method name must be the same.
+Argument List: The number, type, or order of arguments must differ. (This is called the method signature in the context of overloading.)
+Return Type: The return type can be different, but it doesn't play a role in distinguishing overloaded methods.
+Access Modifiers: Access modifiers can be different.
+Throws Clause: Overloaded methods can throw different exceptions or no exceptions at all.
+Static and Instance Methods: Both static and instance methods can be overloaded.
+Varargs: Overloading supports methods with variable-length arguments (...).
+
+
+### Method Overriding Rules
+Method Signature: The method must have the same name, return type, and parameter list.
+- For covariant return types, the return type can be a subtype of the return type in the superclass.
+- covariant return types only applicable for objects and not for primitive types.
+Access Modifiers: The overriding method cannot have more restrictive access than the overridden method.
+- Example: If the superclass method is protected, the overriding method cannot be private.
+Exceptions: The overriding method cannot throw new or broader checked exceptions than the overridden method.
+- Example: If the superclass method throws IOException, the overriding method can throw IOException or a subclass (like FileNotFoundException).
+Static Methods: Static methods cannot be overridden but can be hidden. This is known as method hiding.
+Final Methods: Final methods cannot be overridden.
+Private Methods: Private methods cannot be overridden because they are not visible to the subclass.
+Instance vs. Static Context: An instance method cannot override a static method, and vice versa.
+
+
+Key Differences Between Overloading and Overriding
+Feature	        Overloading	        Overriding
+Method Name	    Same	            Same
+Parameter List	Must be different	Must be the same
+Return Type	    Can be different	Must be the same (or covariant)
+Access Modifier	No restrictions	    Cannot reduce access
+Resolution      at compile-time	    Resolved at runtime
+Static Methods	Can be overloaded	Cannot be overridden (hidden instead)
+Final Methods	Can be overloaded	Cannot be overridden
+Inheritance	    Not required	    Requires inheritance
