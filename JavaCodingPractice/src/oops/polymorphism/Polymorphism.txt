@@ -67,3 +67,15 @@ Resolution      at compile-time	    Resolved at runtime
 Static Methods	Can be overloaded	Cannot be overridden (hidden instead)
 Final Methods	Can be overloaded	Cannot be overridden
 Inheritance	    Not required	    Requires inheritance
+
+
+### Type casting Rules
+
+A b = (C) d;
+Compile time checking 1 : C and d must have parent-child/child-parent/same type relationship.
+Compile time checking 2: C should be child of A or same type.
+Runtime checking 3: d should be child of C of same type.
+
+Example:
+Object obj = new String("John");
+String s = (String)obj;
