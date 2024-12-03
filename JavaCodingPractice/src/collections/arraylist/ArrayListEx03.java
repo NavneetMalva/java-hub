@@ -27,6 +27,14 @@ public class ArrayListEx03 {
 //		ArrayList: [1, 5, 2, 3, 1, 2]
 //		hashSet: [1, 2, 3, 5]
 
+		// List.of created an immutable object
+		List<String> ls = List.of("Java","Python","C++");
+		ls.add("SpringBoot"); // EXCEPTION in thread "main" java.lang.UnsupportedOperationException
+
+		Set<String> ss = Set.of("Java","Springboot");
+		ss.add("React"); // EXCEPTION in thread "main" java.lang.UnsupportedOperationException
+
+
 		
 		
 	}
