@@ -18,7 +18,7 @@ This lets you validate, modify, or control access to the fields as needed.
 	Encapsulation = data hiding + abstraction;
 */
 
-public class CircleArea {
+class CircleArea {
 
 	private double radius;
 
