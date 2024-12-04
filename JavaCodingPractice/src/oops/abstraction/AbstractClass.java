@@ -19,7 +19,7 @@ class SubSubTest extends SubTest{
     }
 }
 
-class AbsractClass{
+class AbstractClass{
     public static void main(String[] args) {
         SubSubTest sst = new SubSubTest();
         sst.m1();

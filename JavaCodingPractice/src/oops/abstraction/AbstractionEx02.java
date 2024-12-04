@@ -37,8 +37,8 @@ class Rectangle implements Shape {
 	}
 }
 
-//Main class to test the program 
-public class AreaAbstraction {
+//Main class to test the program
+class AreaAbstraction {
 	public static void main(String[] args) {
 		// Creating instances of Circle and Rectangle
 		Circle myCircle = new Circle(5.0);
