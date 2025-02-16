@@ -41,11 +41,11 @@ Methods in ListIterator
 * Listiterator Interface defines the following 9 methods
 - forward direction
 1. public boolean hasNext ()
-2. public void next)
+2. public void next()
 3. public int nextindex ()
 - Backward direction
 4. public boolean hasPrevious()
-5. public void previous)
+5. public void previous()
 6. public int previousIndex ()
 - other capability methods
 7. public void remove()

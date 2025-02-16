@@ -34,7 +34,7 @@ class RaceCar extends Car {
 }
 
 class CarsInfo {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
@@ -49,5 +49,8 @@ class CarsInfo {
         
         RaceCar raceCar = new RaceCar(noOfGear, color, maxSpeed);
         raceCar.printRaceCarInfo();
+
+		Car car = new Car(noOfGear,color);
+		car.printCarInfo();
     }
 }

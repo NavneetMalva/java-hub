@@ -27,7 +27,11 @@ public class ArrayListEx03 {
 //		ArrayList: [1, 5, 2, 3, 1, 2]
 //		hashSet: [1, 2, 3, 5]
 
-		// List.of created an immutable object
+		/**
+		 * List.of created an immutable object
+		 * List.of("Java", "Python", "C++") creates an immutable (unmodifiable) list.
+		 * SOLUTION : Use new ArrayList<>() to create a modifiable list
+		 */
 		List<String> ls = List.of("Java","Python","C++");
 		ls.add("SpringBoot"); // EXCEPTION in thread "main" java.lang.UnsupportedOperationException
 

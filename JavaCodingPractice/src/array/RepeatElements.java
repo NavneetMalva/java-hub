@@ -1,6 +1,5 @@
 package array;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +11,6 @@ public class RepeatElements {
         List<Integer> list = List.of(array);
 
         Map<Integer, Integer> map = new HashMap<>();
-        int count =1;
 
         for(int e: list){
             if(map.containsKey(e)){

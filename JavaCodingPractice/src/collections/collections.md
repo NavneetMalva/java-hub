@@ -1,8 +1,8 @@
 ## ArrayList
 
 * ArrayList and Vector classes implements RandomAccess interface so that we can access any Random element with the same speed.
-* Hence if our frequent operation is retrieval operation then ArrayList is the best choice.
-* ArrayList is best choice if our frequent operation is retrieval operation (Because ArrayList implements  RandomAccessinterfaces)
+* Hence, if our frequent operation is retrieval operation then ArrayList is the best choice.
+* ArrayList is the best choice if our frequent operation is retrieval operation (Because ArrayList implements  RandomAccessInterfaces)
 * ArrayList is the worst choice if our frequent operation is insertion or deletion in the middle (Because several shift operation are require)
 
 Note :
@@ -21,7 +21,7 @@ Note :
 * Heterogeneous Objects are allowed.
 * Null insertion is possible.
 
-* LinkedList implements Serializable and Clonable interfaces but not RandomAccess interface.
+* LinkedList implements Serializable and Cloneable interfaces but not RandomAccess interface.
 * LinkedList is the best choice if our frequent operation is insertion or deletion in the middle.
 * LinkedList is the worst choice if our frequent operation is retrieval operation.
 
@@ -34,7 +34,12 @@ Note :
 - LinkedList is the best choice if our frequent Operation is insertion and deletion
 - LinkedList is the worst choice if our frequent operation is retrieval operation
 - Underlying data structure is Double Linked List.
-- LinkedList doesn't implement RandomAccess interface
+- LinkedList doesn't implement RandomAccess interface.
+
+Note :
+- ✅ Use ArrayList when fast lookups (random access) and fewer insertions/deletions are needed.
+- ✅ Use LinkedList when frequent insertions/deletions at the start/middle are required.
+- 🚀 General Rule: If you don't have a specific reason to use LinkedList, use ArrayList because it's faster for most use cases.
 
 
 ## Vector
