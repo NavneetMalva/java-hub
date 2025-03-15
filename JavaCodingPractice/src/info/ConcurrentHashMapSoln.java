@@ -1,6 +1,5 @@
 package info;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -18,9 +17,7 @@ public class ConcurrentHashMapSoln {
 
             if (e.getKey() == 2)
                 map.put(2, "value-2 Updated"); // Safe modification in ConcurrentHashMap
-
         }
-
         System.out.println("final map ; "+ map);
 
     }

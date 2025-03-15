@@ -6,15 +6,15 @@ public class MaxSubarraySum {
 		int maxSum = Integer.MIN_VALUE;
 		int currSum = 0;
 
-		for (int i = 0; i < nums.length; i++) {
-			currSum += nums[i];
-			if (currSum > maxSum) {
-				maxSum = currSum;
-			}
-			if(currSum<0) {
-				currSum=0;
-			}
-		}
+        for (int num : nums) {
+            currSum += num;
+            if (currSum > maxSum) {
+                maxSum = currSum;
+            }
+            if (currSum < 0) {
+                currSum = 0;
+            }
+        }
 		System.out.println("maximum sum of the subarray: "+maxSum);
 	}
 

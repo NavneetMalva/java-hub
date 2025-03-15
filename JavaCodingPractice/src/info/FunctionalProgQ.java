@@ -3,7 +3,6 @@ package info;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class FunctionalProgQ {
 
@@ -19,9 +18,10 @@ public class FunctionalProgQ {
 
         System.out.println(persons.stream()
                 .filter(person -> person.getExp()>1)
-                .sorted(Comparator.comparing(Person :: getfName)
+                .sorted(Comparator.comparing(Person :: getExp).reversed() // sort by exp descending
+                        .thenComparing(Person:: getfName)
                         .thenComparing(Person::getlName))
-                .collect(Collectors.toList()));
+                .toList());
     }
 }
 
