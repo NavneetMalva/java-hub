@@ -1,5 +1,18 @@
 package designpattern.adapterdesign;
 
+class Square {
+    private double side;
+
+    public Square(double side){
+        this.side=side;
+    }
+
+    public double getSide(){
+        return side;
+    }
+
+}
+
 /**
  * SquareAdapter Class: Implements the Rectangle interface, adapting the Square class to behave like a Rectangle.
  * It calculates the area using the Square's side length.
@@ -8,7 +21,7 @@ package designpattern.adapterdesign;
  * but doing so would have some downsides and go against the purpose of the Adapter pattern.
  */
 
-public class SquareAdapter  implements Rectangle{
+class SquareAdapter  implements Rectangle{
 
     private Square square;
 

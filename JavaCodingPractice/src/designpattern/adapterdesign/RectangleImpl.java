@@ -1,5 +1,9 @@
 package designpattern.adapterdesign;
 
+interface Rectangle {
+    double getArea();
+}
+
 public class RectangleImpl implements Rectangle {
     private double width;
     private double height;

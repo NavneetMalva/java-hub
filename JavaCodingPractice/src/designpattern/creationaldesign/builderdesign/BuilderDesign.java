@@ -1,6 +1,12 @@
 package designpattern.creationaldesign.builderdesign;
 
-public class Shop {
+/**
+ * It allows the construction of a product in a step-by-step manner,
+ * where the construction process can change based on the type of product being built.
+ * This pattern separates the construction of a complex object from its representation,
+ * allowing the same construction process to create different representations.
+ */
+public class BuilderDesign {
     public static void main(String[] args) {
         // without design pattern, we have to provide all the parameter, we can't leave it as blank.
         // also we have to maintain the same order.
