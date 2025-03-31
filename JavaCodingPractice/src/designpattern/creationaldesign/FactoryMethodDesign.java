@@ -1,51 +1,56 @@
 package designpattern.creationaldesign;
 
-interface Animal{
-    void speak();
+interface Animal {
+
+  void speak();
 }
 
-class Cat implements Animal{
-    @Override
-    public void speak() {
-        System.out.println("Cat says : Meow!!");
-    }
+class Cat implements Animal {
+
+  @Override
+  public void speak() {
+    System.out.println("Cat says : Meow!!");
+  }
 }
 
-class Dog implements Animal{
+class Dog implements Animal {
 
-    @Override
-    public void speak() {
-        System.out.println("Dog says : Bow wow  !!");
-    }
+  @Override
+  public void speak() {
+    System.out.println("Dog says : Bow wow  !!");
+  }
 }
 
-interface AnimalFactory{
-    Animal createAnimal();
+interface AnimalFactory {
+
+  Animal createAnimal();
 }
 
-class DogFactory implements AnimalFactory{
+class DogFactory implements AnimalFactory {
 
-    @Override
-    public Animal createAnimal() {
-        return new Dog();
-    }
+  @Override
+  public Animal createAnimal() {
+    return new Dog();
+  }
 }
-class CatFactory implements AnimalFactory{
 
-    @Override
-    public Animal createAnimal() {
-        return new Cat();
-    }
+class CatFactory implements AnimalFactory {
+
+  @Override
+  public Animal createAnimal() {
+    return new Cat();
+  }
 }
 
 public class FactoryMethodDesign {
-    public static void main(String[] args) {
-        AnimalFactory dogFactory = new DogFactory();
-        Animal dog = dogFactory.createAnimal();
-        dog.speak();
 
-        AnimalFactory catFactory = new CatFactory();
-        Animal cat = catFactory.createAnimal();
-        cat.speak();
-    }
+  public static void main(String[] args) {
+    AnimalFactory dogFactory = new DogFactory();
+    Animal dog = dogFactory.createAnimal();
+    dog.speak();
+
+    AnimalFactory catFactory = new CatFactory();
+    Animal cat = catFactory.createAnimal();
+    cat.speak();
+  }
 }

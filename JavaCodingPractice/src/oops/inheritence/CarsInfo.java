@@ -3,54 +3,58 @@ package oops.inheritence;
 import java.util.Scanner;
 
 class Car {
-    int noOfGear;
-    String color;
-    // Write your constructor and printCarInfo method here.
-	public Car(int noOfGear, String color) {
-		super();
-		this.noOfGear = noOfGear;
-		this.color = color;
-	}
-    
-	public void printCarInfo() {
-		System.out.println("noOfGear: "+noOfGear+"\ncolor: "+color);
-	}
+
+  int noOfGear;
+  String color;
+
+  // Write your constructor and printCarInfo method here.
+  public Car(int noOfGear, String color) {
+    super();
+    this.noOfGear = noOfGear;
+    this.color = color;
+  }
+
+  public void printCarInfo() {
+    System.out.println("noOfGear: " + noOfGear + "\ncolor: " + color);
+  }
 
 }
 
 class RaceCar extends Car {
-    int maxSpeed;
-    // Write your constructor and printRaceCarInfo method here.
 
-	public RaceCar(int noOfGear, String color, int maxSpeed) {
-		super(noOfGear, color);
-		this.maxSpeed = maxSpeed;
-	}
-    
-	public void printRaceCarInfo() {
-		System.out.println("noOfGear: "+noOfGear+"\ncolor: "+color+"\nmaxSpeed :"+maxSpeed);
-	}
-    
+  int maxSpeed;
+  // Write your constructor and printRaceCarInfo method here.
+
+  public RaceCar(int noOfGear, String color, int maxSpeed) {
+    super(noOfGear, color);
+    this.maxSpeed = maxSpeed;
+  }
+
+  public void printRaceCarInfo() {
+    System.out.println("noOfGear: " + noOfGear + "\ncolor: " + color + "\nmaxSpeed :" + maxSpeed);
+  }
+
 }
 
 class CarsInfo {
-    public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+  public static void main(String[] args) {
 
-        System.out.println("Enter values:");
-        int noOfGear = sc.nextInt();
+    Scanner sc = new Scanner(System.in);
 
-        // [IGNORE]: Extra "end line" in previous line.
-        sc.nextLine();
+    System.out.println("Enter values:");
+    int noOfGear = sc.nextInt();
 
-        String color = sc.nextLine();
-        int maxSpeed = sc.nextInt();
-        
-        RaceCar raceCar = new RaceCar(noOfGear, color, maxSpeed);
-        raceCar.printRaceCarInfo();
+    // [IGNORE]: Extra "end line" in previous line.
+    sc.nextLine();
 
-		Car car = new Car(noOfGear,color);
-		car.printCarInfo();
-    }
+    String color = sc.nextLine();
+    int maxSpeed = sc.nextInt();
+
+    RaceCar raceCar = new RaceCar(noOfGear, color, maxSpeed);
+    raceCar.printRaceCarInfo();
+
+    Car car = new Car(noOfGear, color);
+    car.printCarInfo();
+  }
 }

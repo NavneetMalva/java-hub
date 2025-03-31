@@ -16,25 +16,27 @@ Reading the whole file in a List
 Read a text file as String
 
 */
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
 public class Ex01BufferedReader {
 
-	public static void main(String[] args) throws Exception {
+  public static void main(String[] args) throws Exception {
 
-		// File path is passed as parameter
-		File file = new File("./readfile.txt");
+    // File path is passed as parameter
+    File file = new File("./readfile.txt");
 
-		// Creating an object of BufferedReader class
-		BufferedReader br = new BufferedReader(new FileReader(file));
+    // Creating an object of BufferedReader class
+    BufferedReader br = new BufferedReader(new FileReader(file));
 
-		// Declaring a string variable
-		String st;
-		// Condition holds true till
-		// there is character in a string
-		while (( st = br.readLine()) != null)
-			System.out.println(st);
-	}
+    // Declaring a string variable
+    String st;
+    // Condition holds true till
+    // there is character in a string
+    while ((st = br.readLine()) != null) {
+      System.out.println(st);
+    }
+  }
 }

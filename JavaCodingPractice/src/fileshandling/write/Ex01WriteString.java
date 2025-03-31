@@ -13,6 +13,7 @@ There are many ways to write into a file in Java as there are many classes and m
     */
 
 //Importing required classes
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,26 +21,26 @@ import java.nio.file.Path;
 
 public class Ex01WriteString {
 
-	// Main driver method
-	public static void main(String[] args) {
-		// Assigning the content of the file
-		String text = "Welcome to JavaProgramming\nHappy Learning!";
+  // Main driver method
+  public static void main(String[] args) {
+    // Assigning the content of the file
+    String text = "Welcome to JavaProgramming\nHappy Learning!";
 
-		// Defining the file name of the file
-		Path fileName = Path.of("./writeString.txt");
+    // Defining the file name of the file
+    Path fileName = Path.of("./writeString.txt");
 
-		try {
-			// Writing into the file
-			Files.writeString(fileName, text);
+    try {
+      // Writing into the file
+      Files.writeString(fileName, text);
 
-			// Reading the content of the file
-			String fileContent = Files.readString(fileName);
+      // Reading the content of the file
+      String fileContent = Files.readString(fileName);
 
-			// Printing the content inside the file
-			System.out.println(fileContent);
-		} catch (IOException e) {
-			// Handling any I/O exceptions
-			System.err.println("An error occurred: " + e.getMessage());
-		}
-	}
+      // Printing the content inside the file
+      System.out.println(fileContent);
+    } catch (IOException e) {
+      // Handling any I/O exceptions
+      System.err.println("An error occurred: " + e.getMessage());
+    }
+  }
 }

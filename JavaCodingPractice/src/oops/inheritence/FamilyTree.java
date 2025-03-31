@@ -1,38 +1,43 @@
 package oops.inheritence;
 
-class GrandFather{
-    String grandFatherName;
+class GrandFather {
 
-    public GrandFather(String grandFatherName){
-        this.grandFatherName=grandFatherName;
-    }
+  String grandFatherName;
+
+  public GrandFather(String grandFatherName) {
+    this.grandFatherName = grandFatherName;
+  }
 }
 
-class Father extends GrandFather{
-    String fatherName;
+class Father extends GrandFather {
 
-    public Father(String fatherName, String grandFatherName){
-        super(grandFatherName);
-        this.fatherName=fatherName;
-    }
+  String fatherName;
+
+  public Father(String fatherName, String grandFatherName) {
+    super(grandFatherName);
+    this.fatherName = fatherName;
+  }
 }
 
-class Son extends Father{
-    String sonName;
+class Son extends Father {
 
-    public Son(String sonName, String fatherName, String grandFatherName){
-        super(fatherName, grandFatherName);
-        this.sonName=sonName;
-    }
+  String sonName;
 
-    public void printName(){
-        System.out.println("sonname: "+sonName+"\nfathername: "+fatherName+"\ngrandfather: "+grandFatherName);
-    }
+  public Son(String sonName, String fatherName, String grandFatherName) {
+    super(fatherName, grandFatherName);
+    this.sonName = sonName;
+  }
+
+  public void printName() {
+    System.out.println("sonname: " + sonName + "\nfathername: " + fatherName + "\ngrandfather: "
+        + grandFatherName);
+  }
 }
 
 class FamilyTree {
-    public static void main(String args[]) {
-        Son s1=new Son("Saurabh","Ramesh","Suresh");
-        s1.printName();
-    }
+
+  public static void main(String args[]) {
+    Son s1 = new Son("Saurabh", "Ramesh", "Suresh");
+    s1.printName();
+  }
 }

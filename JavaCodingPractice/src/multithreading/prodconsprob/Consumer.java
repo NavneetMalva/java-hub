@@ -1,22 +1,25 @@
 package multithreading.prodconsprob;
 
 class Consumer extends Thread {
-	Company c;
 
-	Consumer(Company c) {
-		this.c = c;
-	}
+  Company c;
 
-	public void run() {
-		while (true) {
-			try {
-				this.c.consume_item();
-			} catch(Exception e) {}
+  Consumer(Company c) {
+    this.c = c;
+  }
 
-			try {
-				Thread.sleep(2000);
-			} catch (Exception e) {}
-			
-		}
-	}
+  public void run() {
+    while (true) {
+      try {
+        this.c.consume_item();
+      } catch (Exception e) {
+      }
+
+      try {
+        Thread.sleep(2000);
+      } catch (Exception e) {
+      }
+
+    }
+  }
 }

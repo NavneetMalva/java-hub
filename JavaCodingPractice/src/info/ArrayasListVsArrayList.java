@@ -17,33 +17,34 @@ It’s part of the java.util.ArrayList class.
 */
 
 public class ArrayasListVsArrayList {
-    public static void main(String[] args) {
-        // Arrays.asList()
-        List<String> arrList = Arrays.asList("Apple", "Banana", "Orange");
 
-        // Modifying elements is allowed
-        arrList.set(1, "Grapes");
-        System.out.println("After modifying: " + arrList);
+  public static void main(String[] args) {
+    // Arrays.asList()
+    List<String> arrList = Arrays.asList("Apple", "Banana", "Orange");
 
-        // Adding or removing elements is not allowed (throws UnsupportedOperationException)
-        //arrList.add("Watermelon"); // Throws UnsupportedOperationException
+    // Modifying elements is allowed
+    arrList.set(1, "Grapes");
+    System.out.println("After modifying: " + arrList);
 
-        // ArrayList
-        List<String> list = new ArrayList<String>();
-        list.add("Apple");
-        list.add("Banana");
-        list.add("Orange");
+    // Adding or removing elements is not allowed (throws UnsupportedOperationException)
+    //arrList.add("Watermelon"); // Throws UnsupportedOperationException
 
-        // Modifying elements
-        list.set(1, "Grapes");
-        System.out.println("After modifying: " + list);
+    // ArrayList
+    List<String> list = new ArrayList<String>();
+    list.add("Apple");
+    list.add("Banana");
+    list.add("Orange");
 
-        // Adding and removing elements is allowed
-        list.add("Watermelon");
-        System.out.println("After adding: " + list);
+    // Modifying elements
+    list.set(1, "Grapes");
+    System.out.println("After modifying: " + list);
 
-        list.remove("Apple");
-        System.out.println("After removing: " + list);
+    // Adding and removing elements is allowed
+    list.add("Watermelon");
+    System.out.println("After adding: " + list);
 
-    }
+    list.remove("Apple");
+    System.out.println("After removing: " + list);
+
+  }
 }
