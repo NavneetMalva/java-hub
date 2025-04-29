@@ -17,12 +17,10 @@ public class PairSum {
           pair[0] = arr[i];
           pair[1] = arr[j];
           list.add(pair);
-
         }
       }
     }
     return list;
-
   }
 
   public static void main(String[] args) {

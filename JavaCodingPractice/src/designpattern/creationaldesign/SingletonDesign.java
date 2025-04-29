@@ -3,12 +3,11 @@ package designpattern.creationaldesign;
 /**
  * Singleton Design Pattern Principles Below are the principles of the Singleton Pattern:
  * <p>
- * Single Instance: Singleton ensures that only one instance of the class exists throughout the
- * application. Global Access: Provide a global point of access to that instance. Lazy or Eager
- * Initialization: Support creating the instance either when needed (lazy) or when the class is
- * loaded (eager). Thread Safety: Implement mechanisms to prevent multiple threads from creating
- * separate instances simultaneously. Private Constructor: Restrict direct instantiation by making
- * the constructor private, forcing the use of the access point
+ * Single Instance: Singleton ensures that only one instance of the class exists throughout the application.
+ * Global Access: Provide a global point of access to that instance.
+ * Lazy or Eager Initialization: Support creating the instance either when needed (lazy) or when the class is loaded (eager).
+ * Thread Safety: Implement mechanisms to prevent multiple threads from creating separate instances simultaneously.
+ * Private Constructor: Restrict direct instantiation by making the constructor private, forcing the use of the access point
  */
 class SingletonLazyDesign {
 
@@ -17,7 +16,7 @@ class SingletonLazyDesign {
   private SingletonLazyDesign() {
   }
 
-  public static SingletonLazyDesign getInsance() {
+  public static SingletonLazyDesign getInstance() {
     if (instance == null) {
       instance = new SingletonLazyDesign();
     }
@@ -67,10 +66,10 @@ class MainSingleton {
      * This is example of Lazy initialization, created instance when it was needed.
      */
 
-    SingletonLazyDesign singletonLazyDesign = SingletonLazyDesign.getInsance();
+    SingletonLazyDesign singletonLazyDesign = SingletonLazyDesign.getInstance();
     System.out.println(singletonLazyDesign.hashCode()); // 2055281021
 
-    SingletonLazyDesign singletonLazyDesign2 = SingletonLazyDesign.getInsance();
+    SingletonLazyDesign singletonLazyDesign2 = SingletonLazyDesign.getInstance();
     System.out.println(singletonLazyDesign2.hashCode()); // 2055281021
 
     System.out.println(EagerSingleton.getInstance());

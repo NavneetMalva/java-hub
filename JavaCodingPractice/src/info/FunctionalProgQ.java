@@ -1,6 +1,5 @@
 package info;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -8,13 +7,15 @@ public class FunctionalProgQ {
 
   public static void main(String[] args) {
 
-    List<Person> persons = new ArrayList<>();
-    persons.add(new Person("Rick", "Smith", 3));
-    persons.add(new Person("Morty", "Sanchez", 2));
-    persons.add(new Person("Morty", "Anderson", 9));
-    persons.add(new Person("Summer", "Wick", 1));
-    persons.add(new Person("John", "Cena", 1));
-    persons.add(new Person("Rick", "Roll", 2));
+    List<Person> persons = List.of(
+        new Person("Rick", "Smith", 3),
+        new Person("Morty", "Sanchez", 2),
+        new Person("Morty", "Anderson", 9),
+        new Person("Summer", "Wick", 1),
+        new Person("John", "Cena", 1),
+        new Person("Rick", "Roll", 2)
+    );
+
 
     System.out.println(persons.stream()
         .filter(person -> person.getExp() > 1)

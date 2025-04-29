@@ -46,5 +46,44 @@ public class ArrayasListVsArrayList {
     list.remove("Apple");
     System.out.println("After removing: " + list);
 
+    /**
+     * Using List.of
+     * It will create an immutable list, that means we can not modify the list
+     */
+    List<String> listOf = List.of("Red", "Green", "Blue");
+    //listOf.set(1, "Light Green");
+    //listOf.add("White");
+    System.out.println(listOf);
+
+    /**
+     * Wrap it using the ArrayList to make it mutable
+     * Now It will work fine
+     */
+    List<String> listOf2 = new ArrayList<>(List.of("Red", "Green", "Blue"));
+    listOf2.set(1, "Light Green");
+    listOf2.add("White");
+    System.out.println("listOf2" + listOf2);
+
+
+    /**
+     * using Arrays.asList
+     * It will have a fixed size list,
+     * we can update the element
+     * but if we try to perform add or remove, will throw runtimeException
+     */
+    List<String> asList = Arrays.asList("Red", "Green", "Blue");
+    asList.set(1, "Light Green");
+    //asList.add("White");  // java.lang.UnsupportedOperationException
+    System.out.println("asList" + asList);
+
+    /**
+     * now we can add or remove elements too
+     */
+    List<String> asList2 = new ArrayList<>(List.of("Red", "Green", "Blue"));
+    asList2.set(1, "Light Green");
+    asList2.add("White");
+    System.out.println("asList2" + asList2);
+
+
   }
 }
