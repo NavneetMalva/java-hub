@@ -16,8 +16,35 @@ Note :
 * Only ArrayList and Vector classes implements RandomAccess interface.
 * TreeSet and TreeMap does not support Heterogeneous insertion.
 
-* new capacity of LinkedList = (current_capacity *1.5) +1
-* new capacity of vector = (current_capacity *2)
+## ArrayList Capacity Details
+### Default Capacity
+When you create a new `ArrayList()`:
+- The internal array is **not** immediately created.
+- It is created **only when you add the first element**, at which point the default capacity becomes **10**.
+
+### New Capacity When Full
+When the internal array is full, the `ArrayList` grows using the following formula:
+- `new capacity = old capacity + (old capacity / 2)`
+
+For example:
+- If the current capacity is **10**, it grows to **15**.
+- Then from **15**, it grows to **22**.
+- Then from **22**, it grows to **33**.
+- And so on.
+
+This gradual growth helps balance performance and memory usage.
+
+---
+
+### ✅ HashMap
+- Default capacity:
+When you create new HashMap(), the default initial capacity is 16 buckets.
+- New capacity when full (resize):
+When the number of entries exceeds capacity * load factor (default load factor is 0.75), the map resizes.
+<br> `new capacity = old capacity * 2` <br>
+So, it doubles: 16 → 32 → 64 → 128, etc.
+
+---
 
 ## LinkedList
 
@@ -31,6 +58,8 @@ Note :
 * LinkedList is the best choice if our frequent operation is insertion or deletion in the middle.
 * LinkedList is the worst choice if our frequent operation is retrieval operation.
 
+* No capacity; it’s a linked structure, so it grows dynamically as you add elements (no preset size or resizing).
+
 ## ArrayList vs LinkedList
 
 - ArrayList is the best choice if our frequent operation is retrieval
@@ -38,7 +67,7 @@ Note :
 - ArrayList implements RandomAccess interface
 - Underlying data structure for ArrayList is resizable or growable Array.
 
-***
+
 
 - LinkedList is the best choice if our frequent Operation is insertion and deletion
 - LinkedList is the worst choice if our frequent operation is retrieval operation
@@ -53,6 +82,7 @@ Note :
   faster for most use
   cases.
 
+---
 ## Vector
 
 * The underlying Data structure for the vector is resizable array or growable array.
@@ -63,7 +93,7 @@ Note :
 * Vector class implemented Serializable, Cloneable and RandomAccess Interiaces.
 * Most of the methods present in Vector are synchronized. Hence Vector object is Thread-safe.
 * Best choice if the frequent operation is retrieval.
-
+---
 ## Stack
 
 Methods in Stack

@@ -42,6 +42,7 @@ public class EmployeeMapComparator {
     Employees e3 = new Employees(13, "Mary", 13000);
     Employees e4 = new Employees(9, "Anna", 15000);
     Employees e5 = new Employees(10, "John", 17000);
+    Employees e6 = new Employees(19, "Jenna", 15000);
 
     TreeMap<Employees, String> tm = new TreeMap<Employees, String>();
     tm.put(e1, "John");
@@ -49,22 +50,24 @@ public class EmployeeMapComparator {
     tm.put(e3, "Mary");
     tm.put(e4, "Anna");
     tm.put(e5, "John");
+    tm.put(e6, "Jenna");
     System.out.println(tm);
     //{{id=9, name=Anna, salary=15000}=Anna, {id=10, name=John, salary=20000}=John, {id=13, name=Mary, salary=13000}=Mary, {id=21, name=Emma, salary=10000}=Emma}
 
     TreeMap<Employees, String> tm2 = new TreeMap<Employees, String>(
-        new MyEmployeesComparator()); // sorted based on salary
+        new SalaryComparator()); // sorted based on salary
     tm2.put(e1, "John");
     tm2.put(e2, "Emma");
     tm2.put(e3, "Mary");
     tm2.put(e4, "Anna");
     tm2.put(e5, "John");
+    tm2.put(e6, "Jenna");
     System.out.println(tm2);
     // {{id=21, name=Emma, salary=10000}=Emma, {id=13, name=Mary, salary=13000}=Mary, {id=9, name=Anna, salary=15000}=Anna, {id=10, name=John, salary=17000}=John, {id=10, name=John, salary=20000}=John}
   }
 }
 
-class MyEmployeesComparator implements Comparator<Employees> {
+class SalaryComparator implements Comparator<Employees> {
 
   @Override
   public int compare(Employees e1, Employees e2) {
