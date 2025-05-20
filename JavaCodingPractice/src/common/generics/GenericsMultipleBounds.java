@@ -1,7 +1,8 @@
 package common.generics;
 
-interface Printable {
+import lombok.Getter;
 
+interface Printable {
   void print();
 }
 
@@ -39,6 +40,7 @@ class MyNumber extends Number implements Printable {
   }
 }
 
+@Getter
 class Boxx<T extends Number & Printable> {
 
   private T item;
@@ -49,10 +51,6 @@ class Boxx<T extends Number & Printable> {
 
   public void display() {
     item.print();
-  }
-
-  public T getItem() {
-    return item;
   }
 }
 
@@ -70,6 +68,5 @@ public class GenericsMultipleBounds {
  * Printable interface. This ensures that the objects it handles are numeric and can also be
  * printed.
  * <p>
- * The correct order is to place the class first, followed by the interfaces: <T extends Animal &
- * Runnable>
+ * The correct order is to place the class first, followed by the interfaces: <T extends Animal & Runnable>
  */
