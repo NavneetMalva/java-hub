@@ -1,4 +1,4 @@
-package common;
+package common.clone;
 
 /**
  * Cloning with the clone() Method The clone() method in Java is defined in the Object class and is

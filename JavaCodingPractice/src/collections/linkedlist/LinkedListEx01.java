@@ -1,6 +1,6 @@
 package collections.linkedlist;
 
-import java.util.*;
+import java.util.LinkedList;
 
 //Main class
 public class LinkedListEx01 {
@@ -41,12 +41,9 @@ public class LinkedListEx01 {
     for (int i : list) {
       System.out.print(i + " ");
     }
+    System.out.println("\nlist: " + list);
 
-    System.out.println();
-    System.out.println("list: " + list);
-
-    // Linked list to To Array by using toArray();
-    Object[] arr = list.toArray();
+    // Linked list to Array by using toArray();
     for (Object obj : list) {
       System.out.print(obj + " ");
     }
