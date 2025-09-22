@@ -1,5 +1,6 @@
 package strings;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class CountWords {
@@ -14,10 +15,13 @@ public class CountWords {
 
   }
 
-  public static int countWords(String str) {
-    String[] splitStr = str.split(" ");
-    return splitStr.length;
-
+  public static long countWords(String str) {
+    String[] splitStr = str.split("[ ,]+"); //To split by one or more spaces or commas
+    System.out.println(Arrays.toString(splitStr));
+    //return splitStr.length;
+    return Arrays.stream(splitStr)
+        .filter(s -> !s.isEmpty())
+        .count();
   }
 
 }

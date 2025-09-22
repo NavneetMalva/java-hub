@@ -26,9 +26,8 @@ public class ThreadOperations {
 
     try {
       Thread.sleep(5000);
-    } catch (Exception e) {
+    } catch (Exception ignored) {
     }
-    ;
 
     System.out.println(t.getId());
     System.out.println("program ended..");

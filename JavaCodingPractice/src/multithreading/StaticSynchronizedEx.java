@@ -1,10 +1,19 @@
 package multithreading;
 
 /*
-Here, these 2 threads will block each other, as only one lock per class
-exists. So, these 2 static synchronized methods will not be executed at the
-same time.
- */
+Here, these 2 threads will block each other, as only one lock per class exists.
+So, these 2 static synchronized methods will not be executed at the same time.
+
+| Scenario                                                                | Will methods block each other?  |
+| ----------------------------------------------------------------------- | ------------------------------- |
+| Two threads calling synchronized static methods [Given Example]         | ✅ Yes, lock on class object     |
+| Two threads calling synchronized instance methods (same instance)       | ✅ Yes, lock on the instance     |
+| Two threads calling synchronized instance methods (different instances) | ❌ No, they run in parallel      |
+| One static and one instance method                                      | ❌ No, lock on different objects |
+| Using separate locks in static methods                                  | ❌ No, can run concurrently      |
+
+*/
+
 class Demo {
 
   public static synchronized void m1() {

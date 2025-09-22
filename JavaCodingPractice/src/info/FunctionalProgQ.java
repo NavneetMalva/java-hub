@@ -1,5 +1,7 @@
 package info;
 
+import lombok.Data;
+
 import java.util.Comparator;
 import java.util.List;
 
@@ -20,13 +22,13 @@ public class FunctionalProgQ {
     System.out.println(persons.stream()
         .filter(person -> person.getExp() > 1)
         .sorted(Comparator.comparing(Person::getExp).reversed() // sort by exp descending
-            .thenComparing(Person::getfName)
-            .thenComparing(Person::getlName))
+            .thenComparing(Person::getFName)
+            .thenComparing(Person::getLName))
         .toList());
   }
 }
 
-
+@Data
 class Person {
 
   private String fName, lName;
@@ -35,30 +37,6 @@ class Person {
   public Person(String fName, String lName, int exp) {
     this.fName = fName;
     this.lName = lName;
-    this.exp = exp;
-  }
-
-  public String getfName() {
-    return fName;
-  }
-
-  public void setfName(String fName) {
-    this.fName = fName;
-  }
-
-  public String getlName() {
-    return lName;
-  }
-
-  public void setlName(String lName) {
-    this.lName = lName;
-  }
-
-  public int getExp() {
-    return exp;
-  }
-
-  public void setExp(int exp) {
     this.exp = exp;
   }
 

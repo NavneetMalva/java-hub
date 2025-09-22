@@ -119,21 +119,23 @@ class MyCustomException {
 
 /**
  * ✅ Yes, it WILL compile successfully.
- *
+ * <p>
  * 🧠 Why?
  * In Java, when you override a method, the overriding method in the subclass:
- *
  * Must not throw broader (checked) exceptions than the method in the superclass.
  * Can:
  * Throw fewer or narrower checked exceptions, or
  * Throw unchecked exceptions (like RuntimeException and its subclasses), or
  * Throw no exception at all.
  */
-class Exception1{
-void method() throws Exception{}
+class Exception1 {
+  void method() throws Exception {
+  }
 }
-class Exception2 extends Exception1{
-  void method() throws RuntimeException{}
+
+class Exception2 extends Exception1 {
+  void method() throws RuntimeException {
+  }
 }
 
 
@@ -160,12 +162,13 @@ class Exception12 extends Exception11 {
  * then, child class cannot throw checked exception
  */
 
-class MyException3{
-  public void hello3(){
+class MyException3 {
+  public void hello3() {
     System.out.println("hello from hello3");
   }
 }
-class MyException4 extends MyException3{
+
+class MyException4 extends MyException3 {
   //public void hello3() throws IOException{    // ❌ Compile-time
   //  System.out.println("hello from hello4");
   //}
@@ -176,7 +179,7 @@ class MyException4 extends MyException3{
  * child class declares unchecked exception.
  * ✅ Yes, it WILL compile successfully.
  */
-class MyException5 extends MyException3{
+class MyException5 extends MyException3 {
   @Override
   public void hello3() throws ArithmeticException {
     System.out.println();

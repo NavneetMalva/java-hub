@@ -22,8 +22,7 @@ public class ConcurrentMapProblemQ {
       System.out.println(e.getKey() + ":" + e.getValue());
 
       if (e.getKey() == 2) {
-        map.put(6,
-            "value-6"); // Exception in thread "main" java.util.ConcurrentModificationException
+        map.put(6, "value-6"); // Exception in thread "main" java.util.ConcurrentModificationException
       }
 
     }
@@ -31,10 +30,10 @@ public class ConcurrentMapProblemQ {
   }
 }
 
-/**
+/*
  * Solution To avoid this exception, use one of the following options:
  * <p>
- * Use Iterator.remove(): This method safely removes elements during iteration. Use
- * ConcurrentHashMap: It allows concurrent modifications without throwing an exception. Use
- * Map.entrySet() Copy: Make a copy of the entry set before iteration if modification is needed.
+ * Use Iterator.remove(): This method safely removes elements during iteration.
+ * Use ConcurrentHashMap: It allows concurrent modifications without throwing an exception.
+ * Use Map.entrySet() Copy: Make a copy of the entry set before iteration if modification is needed.
  */
