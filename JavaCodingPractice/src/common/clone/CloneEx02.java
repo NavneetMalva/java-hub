@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * Deep Cope Example
+ * Deep Copy Example
  */
 @Data
 @AllArgsConstructor
@@ -39,7 +39,7 @@ class Emp3 implements Cloneable {
     e2.getCompany().setName("Company_XYZ");
     System.out.println("e1 company name : " + e1.getCompany().getName()); // e1 company name : Company_ABC
     System.out.println("e2 company name : " + e2.getCompany().getName()); // e2 company name : Company_XYZ
-    /**
+    /*
      * In the above example, we have overridden the clone method in our employee class,
      * and we called the clone method on a mutable company object.
      */
