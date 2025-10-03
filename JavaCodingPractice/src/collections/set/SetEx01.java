@@ -13,11 +13,9 @@ public class SetEx01 {
     List<Integer> list2 = Arrays.asList(1, 3, 7, 5, 4, 0, 7, 5);
 
     Set<Integer> set1 = new HashSet<>();
-    set1.addAll(
-        list1); // populate the set with the list items, It will remove the duplicate elements
+    set1.addAll(list1); // populate the set with the list items, It will remove the duplicate elements
 
-    Set<Integer> set2 = new HashSet<Integer>(
-        list2); // Passing list2 directly to make a set of this.
+    Set<Integer> set2 = new HashSet<Integer>(list2); // Passing list2 directly to make a set of this.
     System.out.println("set1: " + set1);
     System.out.println("set2: " + set2);
 

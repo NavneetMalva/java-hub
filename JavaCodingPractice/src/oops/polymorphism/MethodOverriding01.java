@@ -18,6 +18,10 @@ class Childs extends Parents {
   public void m2() {
     System.out.println("method m2 child");
   }
+
+  public void m3() {
+    System.out.println("method m3 child");
+  }
 }
 
 class MethodOverriding01 {
@@ -31,6 +35,9 @@ class MethodOverriding01 {
 
     Parents c2 = new Childs();
     c2.m2(); // m2 child
+
+    Parents c3 = new Childs();
+    // c2.m3(); // parent doesn't have m3 method
 
     /**
      * Parent can hold the child reference.

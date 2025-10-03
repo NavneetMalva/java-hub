@@ -5,8 +5,7 @@ package oops.encapsulation;
 Abstraction is process of hiding the implementation details and showing only the functionality to the users.
 
 Encapsulation
-Encapsulation is a process of binding data and methods together in a single unit,  
-providing controlled access to data.
+Encapsulation is a process of binding data and methods together in a single unit, providing controlled access to data.
 
 ** Steps to Achieve Encapsulation in Java
 Make Fields Private: Declare fields as private to restrict direct access from outside the class.

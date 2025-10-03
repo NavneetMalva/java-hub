@@ -4,7 +4,8 @@ package oops.polymorphism;
  * Why it works: Method overloading resolution happens at compile-time, and the compiler selects the
  * best match for the method based on the argument type. If an exact match is unavailable, widening
  * is used. Widening conversion in Java allows a smaller primitive type to be converted to a larger
- * one in the following order: byte → short → int → long → float → double
+ * one in the following order:
+ * byte → short → int → long → float → double
  * <p>
  * For 'a' (a char), it widens to int. For 10L (a long), it widens to float.
  */

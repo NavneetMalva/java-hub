@@ -1,11 +1,9 @@
 package oops.polymorphism;
 
 class Animal {
-
 }
 
 class Monkey extends Animal {
-
 }
 
 class MethodOverloading06 {
