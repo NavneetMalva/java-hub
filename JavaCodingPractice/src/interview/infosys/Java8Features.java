@@ -1,4 +1,4 @@
-package info;
+package interview.infosys;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

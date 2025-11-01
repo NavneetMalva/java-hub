@@ -1,4 +1,4 @@
-package info;
+package interview.infosys;
 
 import java.util.List;
 import java.util.random.RandomGenerator;

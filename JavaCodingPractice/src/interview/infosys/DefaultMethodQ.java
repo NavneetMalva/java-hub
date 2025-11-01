@@ -1,4 +1,4 @@
-package info;
+package interview.infosys;
 
 @FunctionalInterface
 interface myFunctionalInterface {

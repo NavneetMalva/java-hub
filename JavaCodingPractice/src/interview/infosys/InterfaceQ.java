@@ -1,4 +1,4 @@
-package info;
+package interview.infosys;
 
 interface myInterface {
 

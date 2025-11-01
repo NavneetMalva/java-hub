@@ -1,4 +1,4 @@
-package info;
+package interview.infosys;
 
 import java.util.ArrayList;
 import java.util.HashMap;

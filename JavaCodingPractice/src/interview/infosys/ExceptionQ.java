@@ -1,4 +1,4 @@
-package info;
+package interview.infosys;
 
 // what will be the value of Method A
 

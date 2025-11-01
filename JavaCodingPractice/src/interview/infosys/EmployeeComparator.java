@@ -1,4 +1,4 @@
-package info;
+package interview.infosys;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -96,11 +96,11 @@ class TeacherSalaryComparator implements Comparator<Teacher> {
   }
 }
 
-class NameSalaryComparator implements Comparator<Teacher>{
+class NameSalaryComparator implements Comparator<Teacher> {
   @Override
   public int compare(Teacher o1, Teacher o2) {
     int flag = o1.getName().compareTo(o2.getName());
-    if(flag==0){
+    if (flag == 0) {
       flag = Double.compare(o1.getSalary(), o2.getSalary());
     }
     return flag;
