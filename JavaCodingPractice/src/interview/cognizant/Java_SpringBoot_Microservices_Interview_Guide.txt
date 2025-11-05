@@ -1,0 +1,314 @@
+Java Spring Boot Microservices Interview Preparation Guide
+================================================================================
+
+----------------------
+Core Java
+----------------------
+
+1. Java 8 Features and all features of Java 8+
+--------------------------------------------------
+Java 8 introduced major changes to Java programming, enabling functional-style programming and improving performance.
+
+Key Features of Java 8:
+- Lambda Expressions: Enables writing anonymous methods concisely.
+- Functional Interfaces: Interfaces with a single abstract method (e.g., Runnable, Comparator, Consumer).
+- Stream API: For processing collections declaratively using map, filter, reduce.
+- Optional Class: Helps handle NullPointerExceptions by explicitly dealing with absence of values.
+- Default & Static Methods in Interfaces: Allows providing default behavior in interfaces.
+- Date and Time API (java.time): A modern replacement for Date and Calendar.
+
+Features introduced after Java 8:
+- Java 9: Module System (JPMS), Stream.ofNullable, Optional.ifPresentOrElse.
+- Java 10: var keyword for local variable inference.
+- Java 11: New String methods like isBlank(), lines(), strip().
+- Java 14+: Switch Expressions, Records, Pattern Matching.
+
+2. Functional Interface and its uses
+-------------------------------------
+A Functional Interface is an interface with exactly one abstract method. It can have multiple default or static methods.
+
+Examples: Runnable, Callable, Comparator, Consumer.
+
+It is used as the target type for lambda expressions or method references.
+
+Example:
+@FunctionalInterface
+interface Calculator {
+    int operate(int a, int b);
+}
+
+Calculator add = (a, b) -> a + b;
+System.out.println(add.operate(5, 3)); // 8
+
+3. Collection class and its uses
+---------------------------------
+The Collections framework provides data structures and algorithms to store, retrieve, and manipulate groups of data efficiently.
+
+Common interfaces:
+- List: Ordered, allows duplicates (ArrayList, LinkedList).
+- Set: Unordered, unique elements (HashSet, TreeSet).
+- Map: Key-value pairs (HashMap, LinkedHashMap, TreeMap).
+
+Utility class Collections provides methods like sort(), reverse(), shuffle().
+
+4. Concurrent modification and how to prevent in a List
+---------------------------------------------------------
+ConcurrentModificationException occurs when a collection is structurally modified while iterating.
+
+Example (throws exception):
+for (String item : list) {
+    if (item.equals("A")) list.remove(item);
+}
+
+Prevention methods:
+- Use Iterator.remove() during iteration.
+
+Iterator<String> iterator = originalList.iterator();
+while (iterator.hasNext()) {
+  String tech = iterator.next();
+  if (tech.equals("Java")) {
+    // iterator.remove(); // ✅ modifies list through iterator safely
+    // originalList.remove(tech); // ❌ modifies the list directly
+  }
+}
+- Use CopyOnWriteArrayList for concurrent modifications.
+- Use synchronization or concurrent collections from java.util.concurrent package.
+- By making a copy of the list and working on the copy
+Example:
+for (String tech : copyList) {
+  if (tech.equals("Spring")) {
+    originalList.remove(tech); // ✅ Safe – not modifying the iterated list
+  }
+}
+
+5. Threads and its uses, How many states are there for Threads
+-----------------------------------------------------------------
+A thread is a lightweight unit of a process that allows concurrent execution.
+
+Thread states:
+ NEW – a newly created thread that has not yet started the execution
+ RUNNABLE – either running or ready for execution but it’s waiting for resource allocation
+ BLOCKED – waiting to acquire a monitor lock to enter or re-enter a synchronized block/method
+ WAITING – waiting for some other thread to perform a particular action without any time limit
+ TIMED_WAITING – waiting for some other thread to perform a specific action for a specified period
+ TERMINATED – has completed its execution
+
+Threads are used for parallelism, responsiveness, and background tasks.
+
+6. What is DeadLock and how to prevent it
+--------------------------------------------
+Deadlock occurs when two or more threads are waiting for each other's locks indefinitely.
+
+Prevention:
+- Acquire locks in a fixed order.
+- Use tryLock() with timeout.
+- Avoid nested locking.
+- Prefer concurrent utilities (e.g., Semaphore, Lock, ExecutorService).
+
+7. Internal working of HashSet
+--------------------------------
+HashSet is backed by a HashMap. It stores elements as keys in the map with a constant dummy value.
+When you add an element, it calls hashCode() to find the bucket and equals() to check duplicates.
+
+Internal working of HashMap
+--------------------------------
+Internally, a HashMap in Java uses an array of linked lists (or, in Java 8+, a combination of linked lists and binary trees for handling hash collisions) to store its entries.
+Here’s a breakdown of how it works:
+Hashing:
+Each key is passed through the hashCode() method, which generates a hash code integer.
+This hash code is further processed to determine the index in the internal array where the entry should be stored.
+Index Calculation:
+The hash code is combined with the array's length to generate an index using (hashCode & (array.length - 1)).
+This index determines the "bucket" where the entry will be stored in the array.
+Handling Collisions:
+When two different keys have the same hash code (or hash code modulo array length results in the same index), it creates a collision.
+In Java, HashMap handles collisions by linking entries in the same bucket together in a linked list,
+and as of Java 8+, in a binary tree if the number of collisions in a bucket exceeds a certain threshold (usually 8).
+This means that when a collision occurs, HashMap does not create a new bucket; it simply chains the entries together in the same bucket.
+Searching in Collision Chain:
+When searching for a key, HashMap first finds the bucket using the hash code.
+If there is a chain (linked list or binary tree) in that bucket, it iterates or traverses the tree to locate the correct entry by comparing keys using equals().
+
+8. Difference between equals and ==
+------------------------------------
+== compares references for objects, while equals() compares logical content.
+
+1. == (Equality Operator)
+Compares references (memory addresses) when used with objects.
+Compares values when used with primitive types.
+Example:
+int a = 10;
+int b = 10;
+System.out.println(a == b); // true (compares values of primitives)
+
+String s1 = new String("Hello");
+String s2 = new String("Hello");
+System.out.println(s1 == s2); // false (different objects in memory)
+
+String s3 = "Hello";
+String s4 = "Hello";
+System.out.println(s3 == s4); // true (string literals point to same memory in String pool)
+
+2. .equals() (Method)
+Defined in the Object class (can be overridden by subclasses).
+Default behavior in Object is the same as == (compares references).
+Most classes (like String, Integer, etc.) override .equals() to compare values/content instead of references.
+
+Example:
+String s1 = new String("Hello");
+String s2 = new String("Hello");
+System.out.println(s1.equals(s2)); // true (compares content, both are "Hello")
+
+Integer i1 = 100;
+Integer i2 = 100;
+System.out.println(i1.equals(i2)); // true (compares values of Integer objects)
+
+Example:
+String s1 = new String("Hello");
+String s2 = new String("Hello");
+System.out.println(s1 == s2); // false
+System.out.println(s1.equals(s2)); // true
+
+9. Serialization and transient keyword
+----------------------------------------
+Serialization converts an object into a byte stream. The transient keyword prevents a variable from being serialized.
+
+Example:
+class Employee implements Serializable {
+    private String name;
+    private transient int salary; // Not serialized
+}
+
+10. Code: Frequency of each character in a String using Java 8
+---------------------------------------------------------------
+String input = "hello";
+Map<Character, Long> freq = input.chars()
+    .mapToObj(c -> (char) c)
+    .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+System.out.println(freq);
+
+
+----------------------
+Spring Boot
+----------------------
+
+1. Spring Boot annotations and flow from Controller to Repository
+-------------------------------------------------------------------
+Flow: Controller → Service → Repository.
+
+Annotations:
+- @RestController: Marks a class as REST controller.
+- @Service: Business logic layer.
+- @Repository: Data access layer.
+- @Autowired: Injects dependencies.
+- @RequestMapping, @GetMapping, @PostMapping: Map HTTP requests.
+- @Entity: Marks JPA entity.
+
+Spring automatically handles dependency injection, object creation, and transaction management.
+
+2. How do you write a custom query in JPA
+--------------------------------------------
+Using @Query annotation in the Repository interface:
+@Query("SELECT e FROM Employee e WHERE e.department = :dept")
+List<Employee> findByDepartment(@Param("dept") String dept);
+
+3. Actuator and its uses
+---------------------------
+Spring Boot Actuator provides endpoints to monitor and manage the application.
+Common endpoints: /actuator/health, /actuator/metrics, /actuator/info.
+Enable in pom.xml: spring-boot-starter-actuator.
+
+4. Validation in Spring Boot (e.g., validate email in POJO)
+-------------------------------------------------------------
+Use @Valid and @Email annotations:
+public class User {
+    @Email
+    private String email;
+}
+
+In Controller:
+public ResponseEntity<String> save(@Valid @RequestBody User user) {...}
+
+5. Exception Handling: annotation for method level and global level
+--------------------------------------------------------------------
+Method-level: @ExceptionHandler
+Global-level: @ControllerAdvice
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleException(Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+}
+
+6. How do you read from properties file
+-----------------------------------------
+Using @Value or @ConfigurationProperties:
+
+@Value("${app.name}")
+private String appName;
+
+or
+
+@ConfigurationProperties(prefix = "app")
+class AppConfig {
+    private String name;
+}
+
+
+----------------------
+Microservices
+----------------------
+
+1. Design Pattern
+-------------------
+Common design patterns in microservices:
+- Circuit Breaker (Resilience4J/Hystrix): Prevent cascading failures.
+- API Gateway: Route requests and manage authentication.
+- Service Discovery (Eureka/Consul): Locate services dynamically.
+- Config Server: Centralized configuration.
+- Builder/Factory/Singleton patterns are also widely used.
+
+2. SAGA Pattern
+-----------------
+The SAGA pattern manages distributed transactions in microservices.
+It breaks a transaction into a series of local transactions coordinated via events.
+
+Two types:
+1. Choreography (event-based)
+2. Orchestration (centralized coordinator)
+
+Used when multiple services must maintain data consistency without 2PC.
+
+
+----------------------
+AWS
+----------------------
+
+1. S3 & EBS difference
+-------------------------
+S3 (Simple Storage Service) is an object storage used for files, backups, and static data.
+EBS (Elastic Block Store) is a block storage used for EC2 volumes and databases.
+
+S3: Accessible over HTTP, global.
+EBS: Attached to an EC2 instance, like a virtual disk.
+
+2. How do you create an EC2 instance
+--------------------------------------
+Steps:
+1. Go to AWS Console → EC2 → Launch Instance.
+2. Choose AMI (OS image).
+3. Select instance type.
+4. Configure storage and security group.
+5. Generate key pair and launch.
+
+3. Main components for deployment process (deployment, service etc.)
+-----------------------------------------------------------------------
+In a deployment pipeline:
+- Build Stage: Maven/Gradle builds the artifact.
+- Docker Image: Created using Dockerfile.
+- Deployment: Managed by Kubernetes Deployment.
+- Service: Exposes pods internally or externally.
+- Ingress: Routes external traffic.
+- ConfigMap/Secret: Stores configuration values.
