@@ -15,18 +15,17 @@ public class Ex03BufferedWriter {
   public static void main(String[] args) {
 
     // Assigning the file content
-    // Note: Custom contents taken as input to
-    // illustrate
+    // Note: Custom contents taken as input to illustrate
     String text = "Example of BufferedWriter method in Java";
 
     // Try block to check for exceptions
     try {
 
       // Step 1: Create an object of BufferedWriter
-      BufferedWriter f_writer = new BufferedWriter(new FileWriter("./BufferedWriter.txt"));
+      BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("./BufferedWriter.txt"));
 
       // Step 2: Write text(content) to file
-      f_writer.write(text);
+      bufferedWriter.write(text);
 
       // Step 3: Printing the content inside the file on the terminal/CMD
       System.out.println(text);
@@ -36,7 +35,7 @@ public class Ex03BufferedWriter {
       System.out.print("File is created successfully with the content.");
 
       // Step 5: Close the BufferedWriter object
-      f_writer.close();
+      bufferedWriter.close();
     }
 
     // Catch block to handle if exceptions occurs

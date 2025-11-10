@@ -7,7 +7,7 @@ public class Ex02FileReader {
 
   public static void main(String[] args) throws Exception {
 
-    File file = new File("./readfile.txt");
+    File file = new File("src/fileshandling/read/readfile.txt");
 
     FileReader filereader = new FileReader(file);
     int i;

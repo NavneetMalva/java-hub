@@ -2,6 +2,8 @@ package interview.infosys;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class FirstNonRepeatingChar {
 
@@ -18,6 +20,9 @@ public class FirstNonRepeatingChar {
 
     char result2 = firstNonRepeatingChar2(input);
     System.out.println("first non-repeating character of the string is : " + result2);
+
+    char result3 = firstNonRepeatingCharUsingStream(input);
+    System.out.println("first non-repeating character of the string is using stream : " + result3);
 
   }
 
@@ -58,6 +63,28 @@ public class FirstNonRepeatingChar {
       }
     }
     return 0;
+  }
+
+  private static char firstNonRepeatingCharUsingStream(String input) {
+
+
+    Map<Character, Long> map = input.chars()
+        .mapToObj(c -> (char) c)
+        .collect(Collectors.groupingBy(
+            Function.identity(),
+            LinkedHashMap::new,
+            Collectors.counting())
+        );
+
+    Character first = map.entrySet().stream()
+        .filter(entry -> entry.getValue() == 1)
+        .findFirst()
+        .map(Map.Entry::getKey)
+        .orElse('0');
+
+    return first;
+
+
   }
 
 }
