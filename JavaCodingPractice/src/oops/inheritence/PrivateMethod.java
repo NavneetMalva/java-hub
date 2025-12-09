@@ -26,8 +26,7 @@ class SubClass extends SuperClass {
   // This method overrides the public method in SuperClass
   public void publicMethod() {
     System.out.println("This is a public method in SubClass");
-    privateMethod(); // calls the private method in
-    // SubClass, not SuperClass
+    privateMethod(); // calls the private method in SubClass, not SuperClass
   }
 }
 

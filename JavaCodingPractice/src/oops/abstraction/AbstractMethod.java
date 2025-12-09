@@ -6,8 +6,8 @@ abstract class AbstractMethod {
 }
 
 /**
- * if class contains at least one abstract method, we have to declare class as 'abstract'. abstract
- * class can have zero number of abstract method.
+ * if class contains at least one abstract method, we have to declare class as 'abstract'.
+ * abstract class can have zero number of abstract method.
  */
 
 class Main extends AbstractMethod {

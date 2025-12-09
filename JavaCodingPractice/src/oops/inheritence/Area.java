@@ -8,7 +8,7 @@ class Shape {
 
 class Square extends Shape {
 
-  private int r;
+  private final int r;
 
   public Square(int r) {
     this.r = r;
@@ -40,10 +40,10 @@ class Rectangle extends Shape {
 public class Area {
 
   public static void main(String[] args) {
-    Rectangle rec = new Rectangle(10, 30);
+    Shape rec = new Rectangle(10, 30);
     System.out.println(rec.getArea());
 
-    Square sq = new Square(10);
+    Shape sq = new Square(10);
     System.out.println(sq.getArea());
   }
 

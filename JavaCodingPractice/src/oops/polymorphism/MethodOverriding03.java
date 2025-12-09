@@ -1,8 +1,8 @@
 package oops.polymorphism;
 
 /**
- * Overriding wrt to var arguments but here its not overriding, but its overloading hence method
- * resolution happening at compile time
+ * Overriding wrt to var arguments but here its not overriding,
+ * but its overloading hence method resolution happening at compile time
  */
 
 class P4 {

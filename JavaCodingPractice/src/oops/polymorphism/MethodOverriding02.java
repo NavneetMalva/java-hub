@@ -26,7 +26,7 @@ class C extends P {
     c.m1();
 
     P p = new C();
-    // p.m1();  // ERROR: m1() has private access in P
+    //p.m1();  // ERROR: m1() has private access in P
   }
 }
 

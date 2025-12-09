@@ -23,6 +23,11 @@ public class FunctionalInterfaceEx01 implements Sayable {
   public static void main(String[] args) {
     FunctionalInterfaceEx01 fi = new FunctionalInterfaceEx01();
     fi.say("Morty");
+
+    // Lambda Expression
+    Sayable say = (str) -> System.out.println("Hello from Lambda Exp: " + str);
+    say.say("Rick");
+
   }
 
 }
