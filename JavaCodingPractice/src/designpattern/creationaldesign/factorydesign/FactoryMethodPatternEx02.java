@@ -1,4 +1,4 @@
-package designpattern.creationaldesign;
+package designpattern.creationaldesign.factorydesign;
 
 interface Employee {
   double fetchSalary();
@@ -37,6 +37,6 @@ class DeveloperClient {
   public static void main(String[] args) {
     Employee employee = EmployeeFactory.getEmployee("Web");
     double salary = employee.fetchSalary();
-    System.out.println("Salary : "+ salary);
+    System.out.println("Salary : " + salary);
   }
 }

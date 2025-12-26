@@ -1,4 +1,4 @@
-package designpattern.creationaldesign;
+package designpattern.creationaldesign.factorydesign;
 
 /**
  * The Factory Method Design Pattern is a creational design pattern used in software development. It

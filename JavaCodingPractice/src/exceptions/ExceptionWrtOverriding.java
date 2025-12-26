@@ -49,6 +49,41 @@ class Child extends Parent {
     */
 }
 
+/*Executing finally
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+- Exception is thrown after finally completes
+*/
+class ExceptionWithFinally {
+  public static void main(String[] args) {
+    try {
+      int x = 10 / 0;
+    } finally {
+      System.out.println("Executing finally");
+    }
+  }
+}
+
+/*
+finally runs
+But since no return in finally, return from catch stands
+*/
+class ExceptionWithFinallyReturn {
+  public static void main(String[] args) {
+    System.out.println(finallyWithReturn());
+  }
+
+  private static int finallyWithReturn() {
+    try {
+      int x = 10 / 0;
+    } catch (Exception e) {
+      return 1;
+    } finally {
+      System.out.println("Executing finally");
+    }
+    return 2;
+  }
+}
+
 public class ExceptionWrtOverriding {
   public static void main(String[] args) {
     Parent obj = new Child();

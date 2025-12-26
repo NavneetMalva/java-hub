@@ -1,5 +1,11 @@
 package common.generics;
 
+interface Container<T> {
+  void add(T item);
+
+  T get();
+}
+
 public class GenericContainer<T> implements Container<T> {
 
   private T item;

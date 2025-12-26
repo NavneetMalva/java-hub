@@ -1,12 +1,10 @@
-package designpattern.creationaldesign;
+package designpattern.creationaldesign.factorydesign;
 
 interface Animal {
-
   void speak();
 }
 
 class Cat implements Animal {
-
   @Override
   public void speak() {
     System.out.println("Cat says : Meow!!");
@@ -14,7 +12,6 @@ class Cat implements Animal {
 }
 
 class Dog implements Animal {
-
   @Override
   public void speak() {
     System.out.println("Dog says : Bow wow  !!");

@@ -1,4 +1,4 @@
-package designpattern.creationaldesign;
+package designpattern.creationaldesign.singletondesign;
 
 class Parent implements Cloneable {
   int x = 20;

@@ -7,6 +7,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Solution {
 
@@ -202,6 +204,18 @@ public class Solution {
 
     System.out.println(countUniqueEmails(new String[]{"test.email+alex@ninjas.com", "test.email.goo+ciao@ninjas.com", "nav@gmail.com"}));
 
+
+    String str = "swiss";
+
+    Map<Character, Long> map
+        = str.chars()
+        .mapToObj(c -> (char) c)
+        .collect(Collectors.groupingBy(
+            Function.identity(),
+            Collectors.counting())
+        );
+
+    System.out.println(map);
 
   }
 

@@ -1,4 +1,4 @@
-package designpattern.creationaldesign;
+package designpattern.creationaldesign.singletondesign;
 
 /**
  * Singleton Design Pattern Principles Below are the principles of the Singleton Pattern:
