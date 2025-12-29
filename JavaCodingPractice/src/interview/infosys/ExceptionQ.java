@@ -55,10 +55,13 @@ class DemoException2 {
   private static int method1() {
     try {
       int a = 15 / 0;
+      System.out.println("try");
       return 1;
     } catch (Exception e) {
+      System.out.println("catch");
       throw new ArithmeticException(e.getMessage());
     } finally {
+      System.out.println("finally");
       return 3;
     }
   }

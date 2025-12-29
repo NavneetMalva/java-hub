@@ -28,18 +28,6 @@ class Teacher implements Comparable<Teacher> {
     return salary;
   }
 
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public void setSalary(double salary) {
-    this.salary = salary;
-  }
-
   @Override
   public String toString() {
     return "Teacher{" +
