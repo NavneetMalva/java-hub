@@ -2,12 +2,10 @@ package array;
 
 class ConsecutiveSubArray {
 
-//Function to find the longest subarray
-//with increasing contiguous elements
+  // Function to find the longest subarray with increasing contiguous elements
   public static int maxiConsecutiveSubarray(int[] arr, int N) {
 
-    // Stores the length of
-    // required longest subarray
+    // Stores the length of required longest subarray
     int maxi = 0;
 
     for (int i = 0; i < N - 1; i++) {
@@ -17,14 +15,10 @@ class ConsecutiveSubArray {
 
       for (j = i; j < N - 1; j++) {
 
-        // If consecutive elements are
-        // increasing and differ by 1
+        // If consecutive elements are increasing and differ by 1
         if (arr[j + 1] == arr[j] + 1) {
           cnt++;
-        }
-
-        // Otherwise
-        else {
+        } else {
           break;
         }
       }
@@ -34,7 +28,6 @@ class ConsecutiveSubArray {
       i = j;
     }
 
-    // Return the length obtained
     return maxi;
   }
 

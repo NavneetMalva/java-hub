@@ -41,7 +41,6 @@ public class PairSum {
   public static void main(String[] args) {
 
     int[] arr = {1, 5, 2, 4, 3, 6};
-    Arrays.sort(arr);
     List<int[]> result = pairSum(arr, 5);
     for (int[] elementpair : result) {
       System.out.println(Arrays.toString(elementpair));
