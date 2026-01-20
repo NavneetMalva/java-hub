@@ -1,0 +1,620 @@
+Java Interview Q&A (Detailed)
+
+1. What are Class Loaders in Java and how do they work?
+A ClassLoader in Java is responsible for loading .class files into the JVM at runtime. Java follows the Parent Delegation Model:
+1) Check if class is already loaded
+2) Delegate to parent ClassLoader
+3) If parent fails, load class locally
+
+Types of ClassLoaders:
+- Bootstrap: Loads core Java classes (java.*)
+- Extension: Loads javax.* from JRE extensions
+- Application: Loads classes from application classpath
+- Custom: User-defined for loading from network/DB/etc
+
+Code Snippet (Custom Loader):
+public class CustomLoader extends ClassLoader {
+    @Override
+    protected Class<?> findClass(String name) throws ClassNotFoundException {
+        byte[] data = loadBytes(name); // custom logic
+        return defineClass(name, data, 0, data.length);
+    }
+}
+
+Advantages:
+- Supports modular loading, dynamic plugins
+- Security via delegation
+
+Limitations:
+- No explicit unload; unloading requires GC on ClassLoader instance
+
+
+2. Explain Aggregation vs Composition in object-oriented programming with examples.
+Both represent HAS-A relationships, difference lies in ownership and lifecycle.
+
+Aggregation:
+- Weak relationship
+- Child can exist independently of parent
+Example:
+class Student {
+    private String name;
+    public Student(String name) {
+        this.name = name;
+    }
+}
+
+class School {
+    private List<Student> students;
+    // School receives already created Students
+    public School(List<Student> students) {
+        this.students = students;
+    }
+}
+
+
+Composition:
+- Strong relationship
+- Child lifecycle depends on parent
+Example:
+Technique: Make Room constructor private and expose creation only via House.
+
+class Room {
+    private String type;
+
+    // Private constructor ensures Room can't be created independently
+    private Room(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+}
+
+class House {
+    private List<Room> rooms = new ArrayList<>();
+    public House() {
+        // House controls room creation
+        rooms.add(new Room("Kitchen"));
+        rooms.add(new Room("Bedroom"));
+    }
+    public List<Room> getRooms() {
+        return rooms;
+    }
+}
+Result:
+Room r = new Room("Kitchen"); // ❌ Compilation error
+House h = new House();        // ✔ Creates Rooms implicitly
+
+
+
+3. Which classes in Java return Optional types and in what context?
+Optional<T> helps avoid NullPointerException by modeling absence.
+
+Contexts returning Optional:
+- Stream API: findFirst(), findAny(), reduce()
+- Map API: Optional.ofNullable(map.get(key))
+- Optional API factories: Optional.of(), Optional.empty()
+
+Code:
+Optional<String> name = Optional.ofNullable(user.getName());
+name.ifPresent(System.out::println);
+
+
+4. Which Java class can take a prefix and suffix as delimiters?
+StringJoiner allows specifying prefix, suffix, and delimiter.
+StringJoiner(CharSequence delimiter, CharSequence prefix, CharSequence suffix)
+
+Code:
+StringJoiner sj = new StringJoiner(",", "[", "]");
+sj.add("A").add("B");
+System.out.println(sj.toString()); // [A,B]
+
+
+5. What is the difference between runAsync() and supplyAsync() in CompletableFuture?
+runAsync():
+- Executes task asynchronously
+- Returns CompletableFuture<Void>
+
+supplyAsync():
+- Executes task asynchronously
+- Returns CompletableFuture<T> with result
+
+Code:
+CompletableFuture.runAsync(() -> System.out.println("No return"));
+CompletableFuture<String> cf = CompletableFuture.supplyAsync(() -> "Result");
+System.out.println(cf.get());
+
+
+6. In how many ways can you make a class immutable in Java?
+Rules to achieve immutability:
+- Declare class final
+- Make fields private and final
+- Initialize via constructor
+- No setters
+- Defensive copy mutable fields
+
+Code:
+public final class User {
+    private final String name;
+    public User(String name){ this.name = name; }
+    public String getName(){ return name; }
+}
+
+
+7. What are the different ways to iterate over a HashMap in Java?
+Options:
+1) for-each entrySet:
+for (Map.Entry<K,V> e : map.entrySet())
+
+2) forEach lambda:
+map.forEach((k,v) -> {});
+
+3) keySet():
+for (K key : map.keySet())
+
+4) iterator on entrySet
+Iterator<Map.Entry<Integer, String>> it = map.entrySet().iterator();
+
+while (it.hasNext()) {
+    Map.Entry<Integer, String> entry = it.next();
+    System.out.println(entry.getKey() + " -> " + entry.getValue());
+}
+
+5) Streams:
+map.entrySet().stream()
+
+
+8. What is Metaspace in Java 8, and how does it differ from PermGen?
+PermGen (Java 7):
+- Fixed-size region storing class metadata
+- Throws OutOfMemoryError: PermGen space
+
+Metaspace (Java 8+):
+In Java 8, Metaspace is the memory region where the JVM stores class metadata, such as:
+Class names
+Method signatures
+Field definitions
+Constant pool
+Method bytecode
+It replaces PermGen (Permanent Generation) from Java 7 and earlier.'
+
+🧩 Why Metaspace Was Introduced?
+Before Java 8:
+Metadata was stored in PermGen
+PermGen had a fixed maximum size
+Caused java.lang.OutOfMemoryError: PermGen space during:
+Deployment of large apps
+Multiple redeploys (Tomcat/Hibernate)
+Large reflection frameworks
+From Java 8 onward:
+PermGen was removed
+Implemented native memory-based Metaspace
+
+🟦 What is Native Memory in this context?
+In the context of Metaspace, native memory refers to the memory allocated from the operating system (OS) directly,
+outside the Java heap.
+
+
+9. What is the purpose of the transient and volatile keywords in Java?
+transient:
+- Excludes field from serialization
+
+volatile:
+- Ensures visibility across threads
+- Prevents caching reordering
+
+Code:
+class Example implements Serializable {
+    private transient String password;
+    private volatile boolean flag;
+}
+
+
+10. What are Marker Interfaces in Java and what are some examples?
+Marker interface = no methods, used to mark metadata for compiler/JVM.
+
+Examples:
+- Serializable (marks object serializable)
+- Cloneable (enables clone())
+- Remote (RMI communication)
+
+
+--------------------------------------------
+
+Spring Boot Interview Q&A (Detailed)
+
+1. What is the difference between JdbcTemplate and Spring Batch, and what are their limitations?
+
+JdbcTemplate is a low-level helper for running SQL queries and small data operations,
+whereas Spring Batch is a full-fledged batch processing framework designed to handle large datasets with chunking, transactions, retries, and restartability.
+JdbcTemplate is lightweight but lacks batch features.
+Spring Batch is powerful for ETL-style jobs but heavier and not suitable for simple queries.
+
+## 🟦 What is JdbcTemplate?
+JdbcTemplate is a low-level database utility provided by Spring to simplify JDBC operations.
+It helps with:
+✔ Running SQL queries
+✔ Inserting / updating records
+✔ Row mapping
+✔ Connection handling & exceptions
+*Use Case
+Use JdbcTemplate when you need:
+Simple CRUD operations
+Direct SQL execution
+No batch processing, no parallel chunks
+
+@Autowired
+private JdbcTemplate jdbcTemplate;
+
+public List<User> findAll() {
+    return jdbcTemplate.query(
+        "SELECT * FROM users",
+        (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("name"))
+    );
+}
+
+Limitations: No chunk processing, manual mapping
+
+## Spring Batch:
+Spring Batch is a framework for batch processing — designed to handle large volumes of data with:
+✔ Chunk processing
+✔ Job scheduling
+✔ Transactions per chunk
+✔ Retries, Skips, Restartability
+✔ Multi-threading & Partitioning
+* Use Case
+Use Spring Batch when you need to:
+Process millions of records
+Read from multiple sources (DB, CSV, JSON, MQ)
+Apply business transformations
+Write to DB, file, message queue
+Handle failures, checkpoints, retries
+
+2. What are the different Appenders available in a logback.xml configuration?
+Common Appenders:
+ConsoleAppender → Writes log output to the console (System.out / System.err).
+FileAppender → Writes log output to a specified file on disk.
+RollingFileAppender → Writes to files and automatically rolls over based on size or date (e.g., log.1, log.2).
+SMTPAppender → Sends log events via email using SMTP protocol (usually for ERROR-level alerts).
+SocketAppender → Sends log events to a remote server or log aggregator over a socket connection.
+
+Code (ConsoleAppender):
+<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+  <encoder><pattern>%d %-5p %c - %m%n</pattern></encoder>
+</appender>
+
+
+3. How do you customize a RestTemplate in a Spring Boot REST application?
+Using RestTemplateBuilder for timeouts/interceptors.
+
+Code:
+@Bean
+public RestTemplate restTemplate(RestTemplateBuilder builder){
+    return builder
+        .setConnectTimeout(Duration.ofSeconds(3))
+        .setReadTimeout(Duration.ofSeconds(5))
+        .build();
+}
+
+
+4. How do you implement a custom Actuator endpoint in Spring Boot?
+Step: Create the Custom Endpoint
+Use:
+@Endpoint → defines custom endpoint
+@ReadOperation → GET method
+@WriteOperation → POST/PUT
+@DeleteOperation → DELETE
+
+Code:
+@Component
+@Endpoint(id="systemStatus")
+public class StatusEndpoint {
+    @ReadOperation
+    public String status() { return "UP"; }
+}
+
+GET http://localhost:8080/actuator/systemStatus
+
+
+5. In Spring Security OAuth2, how many types of Grant Types are available and what do they mean?
+Grant Types:
+- Authorization Code: Browser-based login
+- Client Credentials: Service-to-service
+- Password (Legacy): User credentials directly
+- Refresh Token: Renew access tokens
+
+Use case:
+Client Credentials for machine APIs
+
+
+6. How do you implement Rate Limiting in a Spring Boot application?
+Approaches:
+- Bucket4j (Token Bucket)
+- Redis + Lua scripts
+- API Gateways (Kong/NGINX)
+- Resilience4j
+
+Code (Bucket4j):
+Bucket bucket = Bucket4j.builder()
+  .addLimit(Bandwidth.simple(10, Duration.ofMinutes(1)))
+  .build();
+
+
+7. How do you solve the N+1 query problem in Spring Data JPA?
+The N+1 Query Problem happens when the ORM (like Hibernate) executes:
+1 query to fetch the parent entities
+N extra queries to fetch their associated child entities
+So in total: N +  1 queries
+This normally occurs with lazy-loaded associations, such as @OneToMany or @ManyToOne.
+
+🧩 Example Scenario
+Suppose you have Author and Book:
+class Author {
+    @OneToMany(mappedBy = "author")
+    private List<Book> books;
+}
+Query Behavior Without Fix
+List<Author> authors = authorRepo.findAll();
+This will produce:
+1 query to get all authors:
+SELECT * FROM author;
+Then for each author, Hibernate executes:
+SELECT * FROM book WHERE author_id = ?;
+If you have 10 authors → 10 extra queries
+➡ Total = 1 + 10 = 11 queries
+➡ This is the N+1 problem
+
+There are multiple solutions, each with a use-case.
+✅ Solution 1: Fetch Join in JPQL
+Override the default lazy load using JOIN FETCH:
+@Query("SELECT a FROM Author a JOIN FETCH a.books")
+List<Author> findAllWithBooks();
+✔ Executes a single SQL JOIN query
+Generated SQL example:
+SELECT * FROM author a JOIN book b ON b.author_id = a.id;
+
+🟩 Solution 2: Use @EntityGraph
+Spring Data JPA provides a declarative way:
+
+@EntityGraph(attributePaths = "books")
+@Query("SELECT a FROM Author a")
+List<Author> findAllWithBooks();
+Or apply directly on repository:
+@EntityGraph(attributePaths = {"books"})
+List<Author> findAll();
+✔ Cleaner than fetch join
+✔ Works without custom query
+
+🟨 Solution 3: Batch Size Optimization
+Hibernate can batch lazy loads:
+Add in application.properties:
+spring.jpa.properties.hibernate.default_batch_fetch_size=50
+Also annotate collections:
+@BatchSize(size = 50)
+@OneToMany
+private List<Book> books;
+✔ Reduces N queries into chunks (e.g., 10 → 1 batch)
+
+Note:
+@EntityGraph does NOT add JOIN FETCH to your JPQL itself.
+Instead, it instructs Hibernate to fetch the association eagerly using outer joins at SQL level.
+So with attributePaths = {"books"} Hibernate typically generates a single SQL query with a LEFT OUTER JOIN like this:
+select
+    author.id as author_id,
+    author.name as author_name,
+    books.id as book_id,
+    books.title as book_title,
+    books.author_id as author_fk
+from
+    author
+left outer join
+    book books
+        on author.id = books.author_id;
+
+
+
+8. In how many ways can you read properties from a properties file in Spring?
+Ways:
+✅ 1. Using @Value Annotation
+@Value("${app.name}") String appName;
+✅ 2. Using Environment
+@Autowired Environment env;
+String value = env.getProperty("app.name");
+✅ 3. Using @ConfigurationProperties
+@ConfigurationProperties(prefix="app")
+class AppProps { String name; }
+✅ 4. Using application.properties via @PropertySource
+@PropertySource("classpath:custom.properties")
+
+
+9. What are Optimistic and Pessimistic locking strategies in JPA and how do you handle related errors?
+JPA provides two locking strategies to handle concurrency conflicts when multiple transactions try to modify the same data.
+🟦 1. Optimistic Locking
+Concept:
+Assumes low contention
+Multiple transactions read the same record
+Conflict detected only at commit time
+No DB-level locks are held
+How it works
+Uses a version field
+On update, JPA checks if the version is unchanged
+If changed → conflict → exception
+@Entity
+public class Product {
+    @Id
+    private Long id;
+
+    @Version
+    private Integer version;
+    private Integer quantity;
+}
+
+Behavior
+Transaction A reads product (version = 1)
+Transaction B updates product → version becomes 2
+Transaction A tries to update with version 1 → OptimisticLockException
+
+🟥 2. Pessimistic Locking
+Concept
+Assumes high contention
+Locks the record at the DB level as soon as it is read
+Prevents other transactions from reading/updating it
+Lock Modes
+PESSIMISTIC_READ  // shared lock
+PESSIMISTIC_WRITE // exclusive lock
+PESSIMISTIC_FORCE_INCREMENT
+Example
+Product p = entityManager.find(
+    Product.class,
+    id,
+    LockModeType.PESSIMISTIC_WRITE
+);
+Equivalent SQL executed by Hibernate:
+SELECT * FROM product WHERE id=? FOR UPDATE;
+This blocks other writers/readers depending on the isolation level.
+Why use it?
+✔ Best when data conflicts are frequent
+✔ Ensures strict consistency
+✔ Suitable for transactional financial systems
+
+
+
+10. In how many ways can you perform Autowiring in Spring?
+Types:
+- Constructor Injection (recommended)
+- Setter Injection
+- Field Injection (not recommended)
+
+// Service interface
+public interface MyService {
+    void doWork();
+}
+
+// Service implementation
+@Service
+public class MyServiceImpl implements MyService {
+    @Override
+    public void doWork() {
+        System.out.println("Working...");
+    }
+}
+
+// Constructor Injection (recommended)
+@Component
+public class ConstructorInjectionExample {
+    private final MyService myService;
+
+    public ConstructorInjectionExample(MyService myService) {
+        this.myService = myService;
+    }
+}
+
+// Setter Injection
+@Component
+public class SetterInjectionExample {
+    private MyService myService;
+
+    @Autowired
+    public void setMyService(MyService myService) {
+        this.myService = myService;
+    }
+}
+
+// Field Injection (not recommended)
+@Component
+public class FieldInjectionExample {
+    @Autowired
+    private MyService myService;
+}
+
+
+Code (Constructor):
+@Service
+class OrderService {
+    private final Repo repo;
+    @Autowired OrderService(Repo repo){this.repo = repo;}
+}
+
+📌 Difference
+Dependency Injection = concept to supply dependencies externally
+Autowiring = Spring's feature to automatically inject dependencies
+📌 Ways to Autowire
+Constructor Injection (recommended)
+Field Injection (not recommended)
+Setter Injection
+Using @Qualifier
+Using @Primary
+Using @Bean method autowiring
+Using @Inject / @Named (JSR-330)
+
+
+11. What other arguments/attributes does the @Transactional annotation support in Spring, and what do they do?
+
+The @Transactional annotation in Spring is used to manage transactions declaratively.
+Beyond just enabling a transaction, it provides several attributes to tune transaction behavior.
+Here are the most important ones:
+🟦 1. propagation
+Defines how transaction boundaries behave when a transactional method calls another transactional method.
+Example:
+@Transactional(propagation = Propagation.REQUIRES_NEW)
+Common modes:
+REQUIRED (default)
+REQUIRES_NEW
+SUPPORTS
+MANDATORY
+NEVER
+NOT_SUPPORTED
+NESTED
+🟩 2. isolation
+Defines how separate a transaction should be from others regarding data visibility.
+Example:
+@Transactional(isolation = Isolation.SERIALIZABLE)
+Common levels:
+READ_COMMITTED (default)
+READ_UNCOMMITTED
+REPEATABLE_READ
+SERIALIZABLE
+🟨 3. readOnly
+Optimizes queries when no modifications are done.
+Example:
+@Transactional(readOnly = true)
+Effects:
+✔ Allows DB to optimize execution
+✔ Prevents accidental writes in some DBs
+🟫 4. timeout
+Defines how long a transaction can run before rollback.
+Example:
+@Transactional(timeout = 5) // in seconds
+Useful to prevent long-running operations.
+🟥 5. rollbackFor
+Specifies which exceptions should trigger a rollback.
+Example:
+@Transactional(rollbackFor = { IOException.class, SQLException.class })
+By default:
+Rollbacks on runtime exceptions
+NOT on checked exceptions
+🟪 6. noRollbackFor
+Opposite of rollbackFor — prevents rollback on specific exceptions.
+Example:
+
+@Transactional(noRollbackFor = CustomBusinessException.class)
+🟫 7. value / transactionManager
+Specifies which transaction manager to use (if multiple).
+Example:
+@Transactional("orderTransactionManager")
+📝 Quick Summary Table
+Attribute	Purpose
+propagation	Defines transaction boundary behavior
+isolation	Defines data visibility level
+readOnly	Optimizes read operations
+timeout	Max time before rollback
+rollbackFor	Rollback on specific exception
+noRollbackFor	Do NOT rollback on specific exception
+transactionManager	Choose transaction manager
+🧠 Short Interview Summary Answer
+Aside from starting a transaction, @Transactional allows you to configure propagation behavior,
+isolation levels, read-only optimization, timeouts, and rollback rules via attributes like
+propagation, isolation, readOnly, timeout, rollbackFor, noRollbackFor, and transactionManager.
+These give fine-grained control over transaction management.
+

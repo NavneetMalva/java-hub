@@ -1,0 +1,178 @@
+Capgemini Interview Prep - Refactored Questions, Answers & Code
+
+1. Question: Check if one string is a rotation of another.
+
+Refined Question:
+Given two strings s1 and s2 of equal length, determine whether s2 is a rotated version of s1. Rotation means characters can be shifted from start to end (or vice versa) without reordering.
+
+Example:
+Input: s1 = "abcd", s2 = "cdab" => true
+Input: s1 = "abcd", s2 = "acbd" => false
+
+Answer:
+A standard approach is checking if s2 exists in s1+s1 because any rotation of s1 will be a substring of s1+s1.
+
+Time Complexity Note:
+The interviewer said “Make complexity O(1)”. Checking rotations cannot be O(1) time — minimum is O(n). However, we can achieve O(1) extra space by not creating extra data structures.
+
+Code Snippet (Java):
+public class RotationChecker {
+    public static boolean isRotation(String s1, String s2) {
+        if (s1.length() != s2.length()) return false;
+        String doubled = s1 + s1; // O(n) time, O(1) extra space beyond input
+        return doubled.contains(s2); // O(n)
+    }
+}
+
+2. Question: Fail-fast vs Fail-safe
+
+Refined Question:
+What is the difference between fail-fast and fail-safe iterators in Java?
+
+Answer:
+Fail-Fast:
+- Throws ConcurrentModificationException if collection is structurally modified during iteration.
+- Works on the original collection directly.
+- Example collections: ArrayList, HashMap
+
+Fail-Safe:
+- Does not throw ConcurrentModificationException.
+- Iterates over a cloned snapshot.
+- Example collections: CopyOnWriteArrayList, ConcurrentHashMap
+
+Code Example (Fail-Fast):
+List<String> list = new ArrayList<>();
+list.add("A"); list.add("B");
+for (String s : list) {
+    list.add("C"); // throws ConcurrentModificationException
+}
+
+Code Example (Fail-Safe):
+CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>();
+list.add("A"); list.add("B");
+for (String s : list) {
+    list.add("C"); // no exception
+}
+
+3. Question: Explain SOLID Principles
+
+Refined Question:
+What are SOLID principles in object-oriented design?
+
+Answer:
+S — Single Responsibility Principle (One class = one responsibility)
+O — Open/Closed Principle (Open for extension, closed for modification)
+L — Liskov Substitution Principle (Subtype should replace base type without breaking functionality)
+I — Interface Segregation Principle (No forced implementation of unused methods)
+D — Dependency Inversion Principle (Depend on abstractions, not concrete implementations)
+
+Mini Example (Dependency Inversion):
+interface MessageService { void send(String msg); }
+class EmailService implements MessageService { public void send(String msg) {} }
+class Notification {
+    private MessageService service;
+    public Notification(MessageService service) { this.service = service; }
+}
+
+4. Question: Logging in project
+
+Refined Question:
+How is logging implemented in your project?
+
+Answer:
+Typical enterprise logging approach:
+- Framework: Logback / Log4j2 / SLF4J façade
+- Log levels: TRACE, DEBUG, INFO, WARN, ERROR
+- Externalized configuration: logback.xml / log4j2.xml
+- Logs shipped to: Kibana, Splunk, ELK stack or CloudWatch
+
+Code Example (Spring Boot):
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@RestController
+public class TestController {
+    private static final Logger logger = LoggerFactory.getLogger(TestController.class);
+    @GetMapping("/test")
+    public String test() {
+        logger.info("Request received");
+        return "OK";
+    }
+}
+
+5. Question: Logging exceptions
+
+Refined Question:
+How do you log exceptions in your project?
+
+Answer:
+- Using centralized @ControllerAdvice
+- Logging stacktrace using logger.error()
+- Optional mapping to custom error response
+
+Code Snippet:
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleException(Exception ex) {
+        logger.error("Exception occurred", ex);
+        return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
+6. Question: Dependency Injection
+
+Refined Question:
+What is Dependency Injection in Spring?
+
+Answer:
+DI is a design pattern where dependencies are provided externally instead of being created within the class. Spring injects beans using:
+- Constructor Injection (recommended)
+- Setter Injection
+- Field Injection (not recommended)
+
+Constructor Example:
+@Service
+public class UserService {
+    private final UserRepository repo;
+    public UserService(UserRepository repo) {
+        this.repo = repo;
+    }
+}
+
+7. Question: ConcurrentModificationException
+
+Refined Question:
+What is ConcurrentModificationException and when does it occur?
+
+Answer:
+It occurs when a thread modifies a collection structurally while another thread is iterating over it using a fail-fast iterator.
+
+Example:
+List<String> list = new ArrayList<>();
+list.add("A");
+for (String s : list) list.add("B"); // throws CME
+
+8. Question: Collections safe for concurrent modification
+
+Refined Question:
+Which Java collections support concurrent access without throwing ConcurrentModificationException?
+
+Answer:
+Fail-safe collections using copy or segmentation techniques:
+- CopyOnWriteArrayList (best for read-heavy operations)
+- ConcurrentHashMap (segment locking)
+- CopyOnWriteArraySet
+
+Examples:
+List<String> list = new CopyOnWriteArrayList<>();
+list.add("A"); list.add("B");
+for (String s : list) list.add("C"); // no CME
+
+ConcurrentHashMap<Integer, String> map = new ConcurrentHashMap<>();
+map.put(1, "A"); map.put(2, "B");
+for (Integer key : map.keySet()) map.put(3, "C"); // allowed
+
+END OF FILE
