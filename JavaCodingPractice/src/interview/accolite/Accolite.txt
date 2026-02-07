@@ -1,0 +1,211 @@
+Q1: Self Join VS Outer Left Join
+
+👉 Concept
+A self join is when a table joins with itself.
+Used when:
+hierarchical data (manager → employee)
+comparing rows within same table
+e.g:
+SELECT e.name AS employee,
+m.name AS manager
+FROM employee e
+JOIN employee m
+ON e.manager_id = m.id;
+
+
+✅ Left Outer Join
+👉 Concept
+Returns:
+✔ All rows from LEFT
+✔ Matching rows from RIGHT
+✔ NULL if no match
+👉 Example
+Employees and Departments
+SELECT e.name, d.name
+FROM employee e
+LEFT JOIN department d
+
+-----------------------------------
+Q2: What is the difference between Runnable and Callable in Java concurrency? When should you use each?
+✅ Runnable
+👉 Key Points
+run()
+returns void
+no checked exception
+Runnable r = () -> {
+    System.out.println("Task");
+};
+
+new Thread(r).start();
+
+✅ Callable
+👉 Key Points
+call()
+returns result
+throws exception
+used with ExecutorService
+Callable<Integer> c = () -> 10 + 20;
+
+ExecutorService ex = Executors.newSingleThreadExecutor();
+Future<Integer> f = ex.submit(c);
+
+System.out.println(f.get());
+🔥 Difference
+Feature	    Runnable	Callable
+Return	    void	    value
+Exception	no	        yes
+Use	        simpleTask	background computation
+
+-----------------------------------
+Q3: Write SQL to find the 4th highest salary.
+✅ Using DENSE_RANK (Best)
+SELECT salary
+FROM (
+   SELECT salary,
+          DENSE_RANK() OVER (ORDER BY salary DESC) rnk
+   FROM employee
+) t
+WHERE rnk = 4;
+
+
+SELECT salary
+FROM (
+   SELECT DISTINCT salary
+   FROM employee
+) t
+ORDER BY salary DESC
+LIMIT 1 OFFSET 3;
+
+-----------------------------------
+Q4: Explain difference between UNION and UNION ALL with performance impact.
+✅ UNION
+removes duplicates
+slower (sorting)
+SELECT name FROM A
+UNION
+SELECT name FROM B;
+
+✅ UNION ALL
+keeps duplicates
+faster
+SELECT name FROM A
+UNION ALL
+SELECT name FROM B;
+🔥 Difference
+Feature	    UNION	    UNION ALL
+duplicates	removed	    kept
+speed	    slow	fast
+sorting	    yes	no
+
+-----------------------------------
+Q5: CompletableFuture solves
+✔ Non-blocking
+✔ Callback based
+✔ Chain multiple tasks
+✔ Combine tasks
+✔ Exception handling
+✔ Functional style
+
+✅ 1️⃣ Basic Example
+Run async (no return)
+CompletableFuture.runAsync(() -> {
+    System.out.println("Task running");
+});
+
+
+With return value (supplyAsync)
+
+CompletableFuture<Integer> future =
+        CompletableFuture.supplyAsync(() -> 10);
+
+System.out.println(future.get());
+
+✅ 2️⃣ Chaining (MOST IMPORTANT 🔥)
+thenApply (transform result)
+CompletableFuture.supplyAsync(() -> 10)
+        .thenApply(n -> n * 2)
+        .thenApply(n -> n + 5)
+        .thenAccept(System.out::println);
+Flow:
+10 → 20 → 25
+
+✅ 3️⃣ Combine multiple futures
+thenCombine
+CompletableFuture<Integer> f1 =
+        CompletableFuture.supplyAsync(() -> 10);
+
+CompletableFuture<Integer> f2 =
+        CompletableFuture.supplyAsync(() -> 20);
+
+f1.thenCombine(f2, (a, b) -> a + b)
+  .thenAccept(System.out::println);
+Output:
+30
+
+✅ 4️⃣ Run tasks in parallel
+allOf
+CompletableFuture<Void> all =
+    CompletableFuture.allOf(f1, f2);
+
+all.join();
+Waits for all tasks.
+anyOf
+CompletableFuture.anyOf(f1, f2)
+Returns fastest result.
+
+✅ 5️⃣ Exception Handling (VERY common interview Q)
+exceptionally
+CompletableFuture.supplyAsync(() -> 10/0)
+        .exceptionally(ex -> {
+            System.out.println("Error");
+            return 0;
+        });
+handle
+.handle((res, ex) -> ex == null ? res : 0);
+
+✅ 6️⃣ thenApply vs thenCompose (SUPER IMPORTANT)
+thenApply → nested
+.thenApply(x -> getData(x)) // returns CF<CF<T>>
+thenCompose → flatMap
+.thenCompose(x -> getData(x)) // returns CF<T>
+Rule:
+👉 async inside async → use thenCompose
+✅ Real-world Example (API calls)
+CompletableFuture<User> userFuture =
+        getUserAsync(id);
+
+CompletableFuture<Order> orderFuture =
+        getOrderAsync(id);
+
+userFuture.thenCombine(orderFuture,
+        (user, order) -> new Response(user, order));
+👉 parallel calls = faster response
+✅ Common Methods Cheat Sheet
+Method	            Purpose
+supplyAsync	        return value
+runAsync	        no return
+thenApply	        transform
+thenAccept	        consume
+thenRun	            just run
+thenCompose	        async chaining
+thenCombine	        merge 2
+allOf	            wait all
+anyOf	            first finish
+exceptionally	    handle error
+
+-----------------------------------
+Q6: “What is a Functional Interface? Why is it important for lambda expressions?”
+✅ Concept
+Interface with one abstract method
+Example
+@FunctionalInterface
+interface MyFunc {
+    int add(int a, int b);
+}
+Usage
+MyFunc f = (a,b) -> a+b;
+Built-ins
+Predicate
+Function
+Consumer
+Supplier

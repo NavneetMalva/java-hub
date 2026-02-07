@@ -58,6 +58,41 @@ ORDER BY total_spent DESC;
 SELECT REPLACE(first_name,'n','N') FROM customers;
 
 
+-- You are given a table Employee with the following structure:
+--
+-- Employee
+-- --------
+-- emp_id        INT
+-- emp_name      VARCHAR
+-- department    VARCHAR
+-- salary        INT
+-- hire_date     DATE
+-- manager_id    INT   -- refers to emp_id of the manager
+--
+-- Problem Statement:
+-- Write a SQL query to find the top 2 highest paid employees in each department.
+--
+-- Employees with the same salary should receive the same rank.
+--
+-- If multiple employees tie for the 2nd highest salary, all of them should be included.
+-- Do not use LIMIT, TOP, or subqueries.
+--
+-- Handle the case where an employee does not have a manager (manager_id is NULL).
+
+SELECT *
+FROM (
+         SELECT e.*,
+                DENSE_RANK() OVER (
+               PARTITION BY department
+               ORDER BY salary DESC
+           ) AS dense_rank
+         FROM employee e
+     ) e
+WHERE e.manager_id IS NOT NULL
+  AND e.dense_rank <= 2;
+
+
+
 
 
 

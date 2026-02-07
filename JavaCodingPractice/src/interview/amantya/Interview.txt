@@ -1,0 +1,140 @@
+1️⃣ BiConsumer (Java 8 Functional Interface)
+👉 What is BiConsumer?
+BiConsumer<T, U> represents an operation that accepts two input arguments and returns no result.
+@FunctionalInterface
+public interface BiConsumer<T, U> {
+    void accept(T t, U u);
+}
+👉 When do we use it?
+When you want to perform an action using two values
+Commonly used in Maps, Streams, logging, updating objects
+
+BiConsumer<String, String> bc1 = (a, b) -> System.out.println(a + b);
+BiConsumer<String, String> bc2 = (a, b) -> System.out.println(a.toUpperCase());
+
+bc1.andThen(bc2).accept("hello", "world");
+// Chaining using andThen()
+
+---------------------------------------------------------
+
+
+3️⃣ HashTable vs ConcurrentHashMap
+Feature	Hashtable	ConcurrentHashMap
+Thread Safety	Yes (Synchronized)	Yes (Fine-grained locking)
+Performance	Slow	Fast
+Null Key	❌ Not allowed	❌ Not allowed
+Null Value	❌ Not allowed	❌ Not allowed
+Locking	Entire map	Bucket-level
+
+---------------------------------------------------------
+
+// Second Highest Salaried Employee using JPQL
+
+SELECT e
+FROM Employee e
+WHERE e.salary = (
+    SELECT MAX(e2.salary)
+    FROM Employee e2
+    WHERE e2.department = e.department
+      AND e2.salary < (
+          SELECT MAX(e3.salary)
+          FROM Employee e3
+          WHERE e3.department = e.department
+      )
+)
+
+Level	Purpose
+1️⃣ Innermost	Find highest salary
+2️⃣ Middle	Find second highest salary
+3️⃣ Outer	Fetch employees with that salary
+
+---------------------------------------------------------
+
+7️⃣ LiveLock
+👉 What is LiveLock?
+Threads are active but never progress because they keep responding to each other.
+🔹 Example
+class Worker {
+    private boolean active = true;
+
+    synchronized void work(Worker other) {
+        while (active) {
+            if (other.active) {
+                continue; // keeps yielding
+            }
+            active = false;
+        }
+    }
+}
+
+🔹 Difference Summary
+Problem	Description
+Deadlock	Threads blocked forever
+Livelock	Threads active but stuck
+Starvation	Thread never gets CPU
+
+---------------------------------------------------------
+
+View Resolvers in Spring MVC
+👉 What is a ViewResolver?
+Maps logical view name → actual view
+🔹 Common ViewResolvers
+Resolver	Used For
+InternalResourceViewResolver	JSP
+ThymeleafViewResolver	        Thymeleaf
+FreeMarkerViewResolver	        FreeMarker
+VelocityViewResolver	        Velocity
+ContentNegotiatingViewResolver	JSON / XML
+
+🔹 JSP Example
+@Bean
+public InternalResourceViewResolver resolver() {
+    InternalResourceViewResolver vr = new InternalResourceViewResolver();
+    vr.setPrefix("/WEB-INF/views/");
+    vr.setSuffix(".jsp");
+    return vr;
+}
+🔹 Controller
+@GetMapping("/home")
+public String home() {
+    return "index"; // resolves to /WEB-INF/views/index.jsp
+}
+✅ Interview Tip
+REST APIs do not need ViewResolvers – they return JSON directly.
+
+---------------------------------------------------------
+
+Basic Parallel Stream Example
+List<Integer> numbers =
+        IntStream.rangeClosed(1, 10).boxed().toList();
+
+numbers.parallelStream()
+       .forEach(n ->
+           System.out.println(
+               n + " processed by " + Thread.currentThread().getName()
+           )
+       );
+🔍 Output (sample)
+5 processed by ForkJoinPool.commonPool-worker-3
+2 processed by ForkJoinPool.commonPool-worker-1
+8 processed by ForkJoinPool.commonPool-worker-5
+
+👉 Notice:
+Multiple threads
+Order is NOT guaranteed
+Threads belong to ForkJoinPool.commonPool
+
+How Parallel Streams Work Internally (Important Part)
+🧠 High-Level Flow
+parallelStream()
+   ↓
+ForkJoinPool.commonPool
+   ↓
+Spliterator splits data
+   ↓
+Subtasks created
+   ↓
+Work-stealing execution
+   ↓
+Results merged
+

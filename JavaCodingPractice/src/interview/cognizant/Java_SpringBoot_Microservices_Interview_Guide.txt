@@ -27,7 +27,7 @@ Features introduced after Java 8:
 -------------------------------------
 A Functional Interface is an interface with exactly one abstract method. It can have multiple default or static methods.
 
-Examples: Runnable, Callable, Comparator, Consumer.
+Examples: Runnable (run method), Callable (call method), Comparator (compare(T o1, T o2) method), Consumer (void accept(T t)).
 
 It is used as the target type for lambda expressions or method references.
 

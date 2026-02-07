@@ -44,7 +44,7 @@ public class EmployeeMapComparator {
     Employees e5 = new Employees(10, "John", 17000);
     Employees e6 = new Employees(19, "Jenna", 15000);
 
-    TreeMap<Employees, String> tm = new TreeMap<Employees, String>();
+    TreeMap<Employees, String> tm = new TreeMap<>();
     tm.put(e1, "John");
     tm.put(e2, "Emma");
     tm.put(e3, "Mary");
@@ -54,8 +54,7 @@ public class EmployeeMapComparator {
     System.out.println(tm);
     //{{id=9, name=Anna, salary=15000}=Anna, {id=10, name=John, salary=20000}=John, {id=13, name=Mary, salary=13000}=Mary, {id=21, name=Emma, salary=10000}=Emma}
 
-    TreeMap<Employees, String> tm2 = new TreeMap<Employees, String>(
-        new SalaryComparator()); // sorted based on salary
+    TreeMap<Employees, String> tm2 = new TreeMap<>(new SalaryComparator()); // sorted based on salary
     tm2.put(e1, "John");
     tm2.put(e2, "Emma");
     tm2.put(e3, "Mary");
